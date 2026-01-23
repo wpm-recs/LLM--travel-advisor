@@ -201,50 +201,50 @@ class DataPreparationModule:
 
 
 # --- Execution Example & Export ---
-if __name__ == "__main__":
-    # Configuration
-    INPUT_PATH = "../wikivoyage_sg"
-    OUTPUT_FILE = "all_chunks_output.txt"
-
-    processor = DataPreparationModule(INPUT_PATH)
-
-    try:
-        # 1. Load
-        processor.load_documents()
-
-        # 2. Chunk
-        chunks = processor.chunk_documents()
-
-        # 3. Demo: Smart Parent Retrieval
-        if len(chunks) > 5:
-            print("\n--- Testing Smart Deduplication (get_parent_documents) ---")
-            simulated_retrieved_chunks = [chunks[0], chunks[300], chunks[1]]
-            parent_docs = processor.get_parent_documents(simulated_retrieved_chunks)
-            print(f"Input Chunk Count: {len(simulated_retrieved_chunks)}")
-            print(f"Retrieved Parent Docs: {len(parent_docs)}")
-            if parent_docs:
-                print(f"Most Relevant Parent: {parent_docs[0].metadata.get('place_name')}")
-
-        # 4. Export to TXT for verification
-        if chunks:
-            print(f"\nWriting content to {OUTPUT_FILE} ...")
-            with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-                for i, chunk in enumerate(chunks):
-                    f.write("=" * 80 + "\n")
-                    f.write(f"CHUNK NO: {i} | ID: {chunk.metadata.get('chunk_id')}\n")
-
-                    f.write("-" * 30 + " METADATA " + "-" * 30 + "\n")
-                    f.write(json.dumps(chunk.metadata, ensure_ascii=False, indent=2))
-                    f.write("\n")
-
-                    f.write("-" * 30 + " CONTENT " + "-" * 31 + "\n")
-                    f.write(chunk.page_content)
-                    f.write("\n\n")
-
-            print(
-                f"✅ Export complete! Please check {OUTPUT_FILE} to confirm 'sub_category', 'poi_name', and 'filename' are removed.")
-        else:
-            print("⚠️ No chunks generated, nothing to export.")
-
-    except ValueError as e:
-        print(f"❌ Error: {e}")
+# if __name__ == "__main__":
+#     # Configuration
+#     INPUT_PATH = "../wikivoyage_sg"
+#     OUTPUT_FILE = "all_chunks_output.txt"
+#
+#     processor = DataPreparationModule(INPUT_PATH)
+#
+#     try:
+#         # 1. Load
+#         processor.load_documents()
+#
+#         # 2. Chunk
+#         chunks = processor.chunk_documents()
+#
+#         # 3. Demo: Smart Parent Retrieval
+#         if len(chunks) > 5:
+#             print("\n--- Testing Smart Deduplication (get_parent_documents) ---")
+#             simulated_retrieved_chunks = [chunks[0], chunks[300], chunks[1]]
+#             parent_docs = processor.get_parent_documents(simulated_retrieved_chunks)
+#             print(f"Input Chunk Count: {len(simulated_retrieved_chunks)}")
+#             print(f"Retrieved Parent Docs: {len(parent_docs)}")
+#             if parent_docs:
+#                 print(f"Most Relevant Parent: {parent_docs[0].metadata.get('place_name')}")
+#
+#         # 4. Export to TXT for verification
+#         if chunks:
+#             print(f"\nWriting content to {OUTPUT_FILE} ...")
+#             with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+#                 for i, chunk in enumerate(chunks):
+#                     f.write("=" * 80 + "\n")
+#                     f.write(f"CHUNK NO: {i} | ID: {chunk.metadata.get('chunk_id')}\n")
+#
+#                     f.write("-" * 30 + " METADATA " + "-" * 30 + "\n")
+#                     f.write(json.dumps(chunk.metadata, ensure_ascii=False, indent=2))
+#                     f.write("\n")
+#
+#                     f.write("-" * 30 + " CONTENT " + "-" * 31 + "\n")
+#                     f.write(chunk.page_content)
+#                     f.write("\n\n")
+#
+#             print(
+#                 f"✅ Export complete! Please check {OUTPUT_FILE} to confirm 'sub_category', 'poi_name', and 'filename' are removed.")
+#         else:
+#             print("⚠️ No chunks generated, nothing to export.")
+#
+#     except ValueError as e:
+#         print(f"❌ Error: {e}")
