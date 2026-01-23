@@ -241,40 +241,12 @@ class TravelRAGSystem:
 
         return filters
 
-    def search_by_district(self, district: str, sub_section: str = "") -> List[str]:
-        """
-        按区域搜索景点/餐厅 (领域特定助手方法)
-
-        Args:
-            district: 区域名称 (如 "Singapore/Chinatown")
-            sub_section: 次级分类 (如 "Budget", "Splurge")
-
-        Returns:
-            地点名称列表
-        """
-        if not self.retrieval_module:
-            raise ValueError("请先构建知识库")
-
-        filters = {"Title": district}
-        if sub_section:
-            filters["Sub_Section"] = sub_section
-
-        docs = self.retrieval_module.metadata_filtered_search(district, filters, top_k=15)
-
-        item_names = []
-        for doc in docs:
-            item = doc.metadata.get('Item_Name')
-            if item and item not in item_names:
-                item_names.append(item)
-
-        return item_names
 
     def run_interactive(self):
         """运行交互式问答"""
         print("=" * 65)
         print("🦁 新加坡旅游指南 RAG 智能助手 🦁")
         print("=" * 65)
-        print("💡 您的专属线上导游，为您定制完美的新加坡之旅！")
         print("   (例如：'乌节路有什么平价餐厅？', '去鱼尾狮公园怎么坐车？')")
 
         # 初始化系统
@@ -291,20 +263,11 @@ class TravelRAGSystem:
                 if user_input.lower() in ['退出', 'quit', 'exit', '']:
                     break
 
-                # 默认推荐使用流式输出提升旅游咨询体验
-                stream_choice = input("是否使用流式输出? (y/n, 默认y): ").strip().lower()
-                use_stream = stream_choice != 'n'
 
                 print("\n🧑‍💼 导游回答:")
-                if use_stream:
-                    # 流式输出
-                    for chunk in self.ask_question(user_input, stream=True):
-                        print(chunk, end="", flush=True)
-                    print("\n")
-                else:
-                    # 普通输出
-                    answer = self.ask_question(user_input, stream=False)
-                    print(f"{answer}\n")
+                for chunk in self.ask_question(user_input, stream=True):
+                    print(chunk, end="", flush=True)
+                print("\n")
 
                 # [Image tag generation rule applied here conceptually by the LLM response module]
 
