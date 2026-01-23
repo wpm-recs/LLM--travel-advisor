@@ -199,6 +199,36 @@ class DataPreparationModule:
 
         return final_parent_docs
 
+    def get_statistics(self) -> Dict[str, any]:
+        """
+        获取数据统计信息
+
+        Returns:
+            统计信息字典
+        """
+        if not self.documents:
+            return {}
+
+        categories = {}
+        difficulties = {}
+
+        for doc in self.documents:
+            # 统计分类
+            category = doc.metadata.get('category', '未知')
+            categories[category] = categories.get(category, 0) + 1
+
+            # 统计难度
+            difficulty = doc.metadata.get('difficulty', '未知')
+            difficulties[difficulty] = difficulties.get(difficulty, 0) + 1
+
+        return {
+            'total_documents': len(self.documents),
+            'total_chunks': len(self.chunks),
+            'categories': categories,
+            'difficulties': difficulties,
+            'avg_chunk_size': sum(chunk.metadata.get('chunk_size', 0) for chunk in self.chunks) / len(
+                self.chunks) if self.chunks else 0
+        }
 
 # --- Execution Example & Export ---
 # if __name__ == "__main__":
