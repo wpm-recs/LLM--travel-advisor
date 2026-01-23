@@ -292,7 +292,7 @@ class GenerationIntegrationModule:
         # 流式传输结束后，记录完整 Prompt 和完整回答
         self._log_llm_interaction("详细攻略[流式] (generate_step_by_step_answer_stream)", full_prompt_text, full_response)
 
-    def _build_context(self, docs: List[Document], max_length: int = 2500) -> str:
+    def _build_context(self, docs: List[Document], max_length: int = 500000) -> str:
         """构建上下文字符串"""
         if not docs:
             return "暂无相关旅游指南信息。"
@@ -320,5 +320,4 @@ class GenerationIntegrationModule:
 
             context_parts.append(doc_text)
             current_length += len(doc_text)
-
         return "\n" + "=" * 50 + "\n".join(context_parts)
