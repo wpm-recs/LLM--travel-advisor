@@ -23,16 +23,8 @@ from rag_modules import (
 # 加载环境变量
 load_dotenv()
 
-# 配置日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
-
-class SingaporeTravelRAGSystem:
-    """新加坡旅游指南RAG系统主类"""
+class TravelRAGSystem:
 
     def __init__(self, config: RAGConfig = None):
         """
@@ -70,7 +62,7 @@ class SingaporeTravelRAGSystem:
             index_save_path=self.config.index_save_path
         )
 
-        # 3. 初始化生成集成模块 (已适配旅游导游角色)
+        # 3. 初始化生成集成模块
         print("🤖 初始化导游生成集成模块...")
         self.generation_module = GenerationIntegrationModule(
             model_name=self.config.llm_model,
@@ -146,13 +138,12 @@ class SingaporeTravelRAGSystem:
         # 2. 智能查询重写（根据路由类型）
         if route_type == 'list':
             rewritten_query = question
-            print(f"📝 列表查询保持原样: {question}")
         else:
-            print("🤖 智能分析旅游需求...")
+            print("🤖分析旅游需求...")
             rewritten_query = self.generation_module.query_rewrite(question)
 
         # 3. 检索相关子块（自动应用元数据过滤，如区域、类型）
-        print("🔍 检索相关旅游指南...")
+        print("🔍检索相关旅游指南...")
         filters = self._extract_filters_from_query(question)
         if filters:
             print(f"应用过滤条件: {filters}")
@@ -183,7 +174,8 @@ class SingaporeTravelRAGSystem:
         if route_type == 'list':
             # 列表查询：直接返回推荐地点/餐厅列表
             print("📋 生成打卡点列表...")
-            relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
+            #relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
+            relevant_docs = relevant_chunks
             return self.generation_module.generate_list_answer(question, relevant_docs)
         else:
             # 详细查询：获取完整文档并生成详细攻略
@@ -327,7 +319,7 @@ def main():
     """主函数"""
     try:
         # 创建新加坡旅游RAG系统
-        rag_system = SingaporeTravelRAGSystem()
+        rag_system = TravelRAGSystem()
 
         # 运行交互式问答
         rag_system.run_interactive()

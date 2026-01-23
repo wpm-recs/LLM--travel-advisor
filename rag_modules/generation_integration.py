@@ -4,6 +4,7 @@
 
 import os
 import logging
+from datetime import datetime
 from typing import List
 
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
@@ -19,14 +20,6 @@ class GenerationIntegrationModule:
     """生成集成模块 - 负责LLM集成和新加坡旅游问答生成"""
 
     def __init__(self, model_name: str = "kimi-k2-0711-preview", temperature: float = 0.1, max_tokens: int = 2048):
-        """
-        初始化生成集成模块
-
-        Args:
-            model_name: 模型名称
-            temperature: 生成温度
-            max_tokens: 最大token数
-        """
         self.model_name = model_name
         self.temperature = temperature
         self.max_tokens = max_tokens
@@ -50,17 +43,33 @@ class GenerationIntegrationModule:
 
         logger.info("LLM初始化完成")
 
+    # ================= LLM 调用日志记录方法 =================
+    def _log_llm_interaction(self, method_name: str, full_prompt: str, output_text: str):
+        """
+        将大模型的完整调用输入（模板填充后）和输出记录到同路径的 log.txt 中
+        """
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        log_file_path = os.path.join(current_dir, "log.txt")
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        log_content = (
+            f"\n{'='*70}\n"
+            f"时间: {timestamp} | 调用方法: {method_name}\n"
+            f"【完整输入 (Filled Prompt)】:\n{full_prompt}\n"
+            f"{'-'*30}\n"
+            f"【输出 / 解答】:\n{output_text}\n"
+            f"{'='*70}\n"
+        )
+
+        try:
+            with open(log_file_path, "a", encoding="utf-8") as f:
+                f.write(log_content)
+        except Exception as e:
+            logger.error(f"写入日志文件失败: {e}")
+    # ============================================================
+
     def generate_basic_answer(self, query: str, context_docs: List[Document]) -> str:
-        """
-        生成基础回答
-
-        Args:
-            query: 用户查询
-            context_docs: 上下文文档列表
-
-        Returns:
-            生成的回答
-        """
+        """生成基础回答"""
         context = self._build_context(context_docs)
 
         prompt = ChatPromptTemplate.from_template("""
@@ -76,7 +85,9 @@ class GenerationIntegrationModule:
 
 回答:""")
 
-        # 使用LCEL构建链
+        # 显式生成完整的 Prompt 文本用于日志
+        full_prompt_text = prompt.format(question=query, context=context)
+
         chain = (
                 {"question": RunnablePassthrough(), "context": lambda _: context}
                 | prompt
@@ -85,19 +96,14 @@ class GenerationIntegrationModule:
         )
 
         response = chain.invoke(query)
+
+        # 记录日志：传入完整的 full_prompt_text
+        self._log_llm_interaction("基础回答 (generate_basic_answer)", full_prompt_text, response)
+
         return response
 
     def generate_step_by_step_answer(self, query: str, context_docs: List[Document]) -> str:
-        """
-        生成结构化/分步骤的详细旅游攻略回答
-
-        Args:
-            query: 用户查询
-            context_docs: 上下文文档列表
-
-        Returns:
-            结构化的详细旅游指南
-        """
+        """生成结构化/分步骤的详细旅游攻略回答"""
         context = self._build_context(context_docs)
 
         prompt = ChatPromptTemplate.from_template("""
@@ -111,23 +117,14 @@ class GenerationIntegrationModule:
 请灵活组织回答，建议包含以下部分（根据实际查询内容调整）：
 
 ## 📍 地点/主题概述
-[简要介绍该景点、街区或体验的核心魅力和特色]
-
 ## 🚶‍♂️ 交通指南 (Get around)
-[详细说明如何到达该地，包括建议的MRT地铁站、巴士路线或步行指引]
-
 ## 🌟 推荐体验/打卡点 (See & Do)
-[分点列出值得游览的具体项目、商场或餐厅，并附上简要评价或消费提示]
-
 ## 💡 实用贴士 (Tips/Safety)
-[列出相关的文化礼仪(Respect)、安全事项(Stay safe)或最佳游览时间等]
-
-注意：
-- 结构要清晰，重点突出，方便游客手机端快速阅读。
-- 重点突出实用性，例如价格、开放时间、禁忌等信息（如果原文有提及）。
-- 若信息不足，省略相应板块，不要强行填充。
 
 回答:""")
+
+        # 显式生成完整的 Prompt 文本用于日志
+        full_prompt_text = prompt.format(question=query, context=context)
 
         chain = (
                 {"question": RunnablePassthrough(), "context": lambda _: context}
@@ -137,18 +134,14 @@ class GenerationIntegrationModule:
         )
 
         response = chain.invoke(query)
+
+        # 记录日志
+        self._log_llm_interaction("详细攻略 (generate_step_by_step_answer)", full_prompt_text, response)
+
         return response
 
     def query_rewrite(self, query: str) -> str:
-        """
-        智能查询重写 - 让大模型判断是否需要重写查询以提高检索效果
-
-        Args:
-            query: 原始查询
-
-        Returns:
-            重写后的查询或原查询
-        """
+        """智能查询重写"""
         prompt = PromptTemplate(
             template="""
 你是一个智能查询分析助手，专门处理有关新加坡旅游的搜索。请分析用户的查询，判断是否需要重写以提高检索效果。
@@ -156,30 +149,15 @@ class GenerationIntegrationModule:
 原始查询: {query}
 
 分析规则：
-1. **具体明确的查询**（直接返回原查询）：
-   - 包含具体地点或项目：如"乌节路购物攻略"、"滨海湾花园门票"、"小印度怎么去"
-   - 具体的民生/政策问题：如"新加坡吸烟规定"、"入境违禁品"
-
-2. **模糊不清或过于口语化的查询**（需要重写）：
-   - 过于宽泛：如"去哪玩"、"吃什么"、"推荐酒店"
-   - 缺乏具体信息：如"便宜的"、"特色"、"交通"
-   - 口语化表达：如"想买点东西回去送人"、"晚上有啥好玩的"
-
-重写原则：
-- 保持原意不变
-- 增加标准的新加坡旅游术语（如结合区域：Orchard, Bugis, Little India 等）
-- 匹配元数据中的核心分类（如 Accommodation/Hotels, Food/Dining, Nightlife/Bars）
-
-示例：
-- "去哪玩" → "新加坡 必去景点 观光推荐"
-- "想买点东西回去送人" → "新加坡 伴手礼 纪念品 购物 (Souvenirs/Shopping)"
-- "晚上有啥好玩的" → "新加坡 夜生活 酒吧 俱乐部 (Nightlife/Bars/Clubs)"
-- "吃点好的" → "新加坡 推荐餐厅 美食 高级餐饮 (Food/Dining/Splurge)"
-- "乌节路酒店推荐" → "乌节路酒店推荐"（保持原查询）
+1. **具体明确的查询**（直接返回原查询）
+2. **模糊不清或过于口语化的查询**（需要重写）
 
 请输出最终查询（如果不需要重写就返回原查询）:""",
             input_variables=["query"]
         )
+
+        # 显式生成完整的 Prompt 文本用于日志
+        full_prompt_text = prompt.format(query=query)
 
         chain = (
                 {"query": RunnablePassthrough()}
@@ -190,40 +168,27 @@ class GenerationIntegrationModule:
 
         response = chain.invoke(query).strip()
 
-        if response != query:
-            logger.info(f"查询已重写: '{query}' → '{response}'")
-        else:
-            logger.info(f"查询无需重写: '{query}'")
+        # 记录日志
+        self._log_llm_interaction("查询重写 (query_rewrite)", full_prompt_text, response)
 
         return response
 
     def query_router(self, query: str) -> str:
-        """
-        查询路由 - 根据查询类型选择不同的处理方式
-
-        Args:
-            query: 用户查询
-
-        Returns:
-            路由类型 ('list', 'detail', 'general')
-        """
+        """查询路由"""
         prompt = ChatPromptTemplate.from_template("""
 根据用户的旅游问题，将其分类为以下三种类型之一：
-
-1. 'list' - 用户想要获取推荐列表（如酒店、餐厅、景点列表）
-   例如：推荐几个乌节路的平价酒店、武吉士有什么好吃的、给我3个小印度的景点
-
-2. 'detail' - 用户想要具体的路线、攻略或某个地点的详细信息
-   例如：怎么从机场去市中心、鱼尾狮公园有什么好玩的、退税的步骤是什么
-
-3. 'general' - 其他一般性、文化类或背景介绍问题
-   例如：新加坡的历史是什么、当地的餐桌礼仪、天气怎么样
+1. 'list' - 获取推荐列表
+2. 'detail' - 具体的路线、攻略
+3. 'general' - 其他一般性问题
 
 请只返回分类结果：list、detail 或 general
 
 用户问题: {query}
 
 分类结果:""")
+
+        # 显式生成完整的 Prompt 文本用于日志
+        full_prompt_text = prompt.format(query=query)
 
         chain = (
                 {"query": RunnablePassthrough()}
@@ -234,46 +199,32 @@ class GenerationIntegrationModule:
 
         result = chain.invoke(query).strip().lower()
 
+        # 记录日志
+        self._log_llm_interaction("查询路由 (query_router)", full_prompt_text, result)
+
         if result in ['list', 'detail', 'general']:
             return result
         else:
             return 'general'
 
     def generate_list_answer(self, query: str, context_docs: List[Document]) -> str:
-        """
-        生成列表式回答 - 适用于推荐类查询 (如酒店、餐厅、景点)
-
-        Args:
-            query: 用户查询
-            context_docs: 上下文文档列表
-
-        Returns:
-            列表式回答
-        """
+        """生成列表式回答 (纯逻辑处理，未调用LLM)"""
+        # ... (此方法未调用 LLM，保持不变)
         if not context_docs:
             return "抱歉，指南中暂无相关的推荐信息。"
 
-        # 提取目标名称 (优先提取 Item_Name，若无则提取 Title/Sub_Section)
         items = []
         for doc in context_docs:
-            item_name = doc.metadata.get('Item_Name')
-            if not item_name:
-                item_name = doc.metadata.get('Sub_Section')
-            if not item_name:
-                item_name = doc.metadata.get('Title', '未知地点')
-
-            # 去重
+            item_name = doc.metadata.get('Item_Name') or doc.metadata.get('Sub_Section') or doc.metadata.get('Title', '未知地点')
             if item_name not in items:
                 items.append(item_name)
 
-        # 构建简洁的列表回答
         if len(items) == 1:
             return f"为您推荐：{items[0]}"
         elif len(items) <= 5:
             return f"为您精选以下推荐：\n" + "\n".join([f"{i + 1}. {name}" for i, name in enumerate(items)])
         else:
-            return f"为您精选以下热门推荐：\n" + "\n".join([f"{i + 1}. {name}" for i, name in enumerate(
-                items[:5])]) + f"\n\n此外，还有其他 {len(items) - 5} 个选择可供探索。"
+            return f"为您精选以下热门推荐：\n" + "\n".join([f"{i + 1}. {name}" for i, name in enumerate(items[:5])]) + f"\n\n此外，还有其他 {len(items) - 5} 个选择可供探索。"
 
     def generate_basic_answer_stream(self, query: str, context_docs: List[Document]):
         """生成基础回答 - 流式输出"""
@@ -291,6 +242,9 @@ class GenerationIntegrationModule:
 
 回答:""")
 
+        # 显式生成完整的 Prompt 文本用于日志
+        full_prompt_text = prompt.format(question=query, context=context)
+
         chain = (
                 {"question": RunnablePassthrough(), "context": lambda _: context}
                 | prompt
@@ -298,8 +252,13 @@ class GenerationIntegrationModule:
                 | StrOutputParser()
         )
 
+        full_response = ""
         for chunk in chain.stream(query):
+            full_response += chunk
             yield chunk
+
+        # 流式传输结束后，记录完整 Prompt 和完整回答
+        self._log_llm_interaction("基础回答[流式] (generate_basic_answer_stream)", full_prompt_text, full_response)
 
     def generate_step_by_step_answer_stream(self, query: str, context_docs: List[Document]):
         """生成详细攻略回答 - 流式输出"""
@@ -313,13 +272,10 @@ class GenerationIntegrationModule:
 相关指南信息:
 {context}
 
-请灵活组织回答，建议包含以下部分：
-## 📍 地点/主题概述
-## 🚶‍♂️ 交通指南
-## 🌟 推荐体验
-## 💡 实用贴士
-
 回答:""")
+
+        # 显式生成完整的 Prompt 文本用于日志
+        full_prompt_text = prompt.format(question=query, context=context)
 
         chain = (
                 {"question": RunnablePassthrough(), "context": lambda _: context}
@@ -328,20 +284,16 @@ class GenerationIntegrationModule:
                 | StrOutputParser()
         )
 
+        full_response = ""
         for chunk in chain.stream(query):
+            full_response += chunk
             yield chunk
 
+        # 流式传输结束后，记录完整 Prompt 和完整回答
+        self._log_llm_interaction("详细攻略[流式] (generate_step_by_step_answer_stream)", full_prompt_text, full_response)
+
     def _build_context(self, docs: List[Document], max_length: int = 2500) -> str:
-        """
-        构建上下文字符串，适配新加坡旅游指南元数据
-
-        Args:
-            docs: 文档列表
-            max_length: 最大长度
-
-        Returns:
-            格式化的上下文字符串
-        """
+        """构建上下文字符串"""
         if not docs:
             return "暂无相关旅游指南信息。"
 
@@ -349,7 +301,6 @@ class GenerationIntegrationModule:
         current_length = 0
 
         for i, doc in enumerate(docs, 1):
-            # 获取元数据
             meta = doc.metadata
             category = meta.get('category', '一般信息')
             title = meta.get('Title', '')
@@ -357,16 +308,13 @@ class GenerationIntegrationModule:
             sub_section = meta.get('Sub_Section', '')
             item_name = meta.get('Item_Name', '')
 
-            # 组合路径，类似面包屑导航，帮LLM理解层级 (例如: 餐饮 > 预算 > 店名)
             hierarchy_parts = [p for p in [title, section, sub_section, item_name] if p]
             hierarchy = " > ".join(hierarchy_parts)
 
             metadata_info = f"【指南 {i}】 {hierarchy} | 分类: {category}"
 
-            # 构建文档文本
             doc_text = f"{metadata_info}\n{doc.page_content}\n"
 
-            # 检查长度限制
             if current_length + len(doc_text) > max_length:
                 break
 
