@@ -11,8 +11,8 @@ class RAGConfig:
     """RAG系统配置类"""
 
     # 路径配置
-    data_path: str = "./wikivoyage_sg"
-    index_save_path: str = "./vector_index"
+    data_path: str = "./wikivoyage_global"
+    index_save_path: str = "./vector_index_global"
 
     # 模型配置
     embedding_model: str = "BAAI/bge-small-zh-v1.5"

@@ -266,17 +266,16 @@ if __name__ == "__main__":
 
     # Example 1: Extract "Singapore" data
     # This will now correctly structure "Singapore/Sentosa" into folders
-    processor = WikiDumpProcessor(
-        dump_file=DUMP_FILE,
-        output_dir="./wikivoyage_sg",
-        root_filter="Singapore"
-    )
-
-    # Example 2: Extract "China" data (Uncomment to use)
     # processor = WikiDumpProcessor(
     #     dump_file=DUMP_FILE,
-    #     output_dir="./wikivoyage_cn",
-    #     root_filter="China"
+    #     output_dir="./wikivoyage_sg",
+    #     root_filter="Singapore"
     # )
+
+    # Example 2: Extract "China" data (Uncomment to use)
+    processor = WikiDumpProcessor(
+        dump_file=DUMP_FILE,
+        output_dir="./wikivoyage_global"
+    )
 
     processor.process()
