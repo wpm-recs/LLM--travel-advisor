@@ -22,7 +22,7 @@ class IndexConstructionModule:
         print(f"Loading embedding model: {self.model_name}...")
         self.embeddings = HuggingFaceEmbeddings(
             model_name=self.model_name,
-            model_kwargs={'device': 'cpu'},
+            model_kwargs={'device': 'cuda'},
             encode_kwargs={'normalize_embeddings': True}
         )
         print("Embedding model loaded successfully.")
