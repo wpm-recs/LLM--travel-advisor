@@ -49,7 +49,7 @@ class TravelRAGSystem:
 
     def initialize_system(self):
         """初始化所有模块"""
-        print("🚀 正在初始化新加坡旅游RAG系统...")
+        print("🚀 正在初始化旅游RAG系统...")
 
         # 1. 初始化数据准备模块
         print("初始化数据准备模块...")
@@ -115,13 +115,12 @@ class TravelRAGSystem:
         print(f"   文本块数: {stats.get('total_chunks', '未知')}")
         print("✅ 知识库构建完成！")
 
-    def ask_question(self, question: str, stream: bool = False):
+    def ask_question(self, question: str, stream: bool = True):
         """
         回答用户问题
 
         Args:
             question: 用户问题
-            stream: 是否使用流式输出
 
         Returns:
             生成的回答或生成器
@@ -157,10 +156,8 @@ class TravelRAGSystem:
             chunk_info = []
             for chunk in relevant_chunks:
                 # 尝试获取具体地名，若无则取次级分类，最后取主区域
-                item_name = chunk.metadata.get('Item_Name') or chunk.metadata.get('Sub_Section') or chunk.metadata.get(
-                    'Title', '未知地点')
-                section = chunk.metadata.get('Section', '')
-                chunk_info.append(f"{item_name}({section})" if section else item_name)
+                chunk_path = chunk.metadata.get('relative_path')
+                chunk_info.append(f"{chunk_path}")
 
             print(f"找到 {len(relevant_chunks)} 个相关攻略块: {', '.join(chunk_info)}")
         else:
@@ -187,16 +184,10 @@ class TravelRAGSystem:
             # 根据路由类型自动选择回答模式
             if route_type == "detail":
                 # 详细查询使用分步攻略模式
-                if stream:
-                    return self.generation_module.generate_step_by_step_answer_stream(question, relevant_docs)
-                else:
-                    return self.generation_module.generate_step_by_step_answer(question, relevant_docs)
+                return self.generation_module.generate_step_by_step(question, relevant_docs)
             else:
                 # 一般查询使用基础问答模式
-                if stream:
-                    return self.generation_module.generate_basic_answer_stream(question, relevant_docs)
-                else:
-                    return self.generation_module.generate_basic_answer(question, relevant_docs)
+                return self.generation_module.generate_basic_answer(question, relevant_docs)
 
     def _extract_filters_from_query(self, query: str) -> dict:
         """
@@ -209,34 +200,18 @@ class TravelRAGSystem:
             "Eat": ["吃", "美食", "餐厅", "餐饮", "小贩中心", "食阁"],
             "Sleep": ["住", "酒店", "住宿", "旅馆", "青年旅舍", "露营"],
             "See": ["看", "景点", "参观", "游览", "地标", "博物馆", "寺庙"],
-            "Do": ["玩", "活动", "体验", "做", "夜间野生动物园"],
+            "Do": ["玩", "活动", "体验", "做"],
             "Buy": ["买", "购物", "商场", "伴手礼", "纪念品", "免税"],
             "Drink": ["喝", "酒吧", "夜生活", "夜店", "咖啡"],
             "Get in": ["交通", "入境", "机场", "过关", "怎么去"],
             "Stay safe": ["安全", "治安", "危险", "罚款", "禁止"],
         }
 
-        # 匹配 Title (区域)
-        region_mapping = {
-            "Singapore/Orchard": ["乌节路", "Orchard"],
-            "Singapore/Chinatown": ["牛车水", "唐人街", "Chinatown"],
-            "Singapore/Little India": ["小印度", "Little India"],
-            "Singapore/Bugis": ["武吉士", "甘榜格南", "Bugis"],
-            "Singapore/Marina Bay": ["滨海湾", "金沙", "Marina Bay"],
-            "Singapore/Sentosa and Harbourfront": ["圣淘沙", "港湾", "Sentosa"],
-            "Singapore Changi Airport": ["樟宜机场", "机场", "Changi"]
-        }
 
         # 检测分类
         for section, keywords in section_mapping.items():
             if any(keyword in query for keyword in keywords):
                 filters['Section'] = section
-                break
-
-        # 检测区域
-        for title, keywords in region_mapping.items():
-            if any(keyword in query for keyword in keywords):
-                filters['Title'] = title
                 break
 
         return filters
@@ -245,7 +220,7 @@ class TravelRAGSystem:
     def run_interactive(self):
         """运行交互式问答"""
         print("=" * 65)
-        print("🦁 新加坡旅游指南 RAG 智能助手 🦁")
+        print(" 旅游指南助手")
         print("=" * 65)
         print("   (例如：'乌节路有什么平价餐厅？', '去鱼尾狮公园怎么坐车？')")
 
