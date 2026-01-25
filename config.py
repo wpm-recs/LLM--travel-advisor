@@ -11,11 +11,12 @@ class RAGConfig:
     """RAG系统配置类"""
 
     # 路径配置
+    chunks_path: str= "./saved_chunks.pkl"
     data_path: str = "./wikivoyage_global"
-    index_save_path: str = "../vector_index_global"
+    index_save_path: str = "./vector_index_global"
 
     # 模型配置
-    embedding_model: str = "BAAI/bge-small-zh-v1.5"
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
     llm_model: str = "kimi-k2-0711-preview"
 
     # 检索配置

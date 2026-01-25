@@ -7,6 +7,7 @@ import sys
 import logging
 from pathlib import Path
 from typing import List
+import pickle
 
 # 添加模块路径
 sys.path.append(str(Path(__file__).parent))
@@ -42,7 +43,6 @@ class TravelRAGSystem:
         # 检查数据路径
         if not Path(self.config.data_path).exists():
             raise FileNotFoundError(f"数据路径不存在: {self.config.data_path}")
-
         # 检查API密钥
         if not os.getenv("MOONSHOT_API_KEY"):
             raise ValueError("请设置 MOONSHOT_API_KEY 环境变量")
@@ -78,16 +78,15 @@ class TravelRAGSystem:
 
         # 1. 尝试加载已保存的索引
         vectorstore = self.index_module.load_index()
-
+        chunks_file = self.config.chunks_path
         if vectorstore is not None:
             print("✅ 成功加载已保存的向量索引！")
             print("加载旅游指南文档...")
-            self.data_module.load_documents()
-            print("进行文本分块...")
-            chunks = self.data_module.chunk_documents()
+            print("📦 加载已保存的文本分块数据...")
+            print("📦 加载已保存的文本分块数据...")
+            with open(chunks_file, 'rb') as f:
+                chunks = pickle.load(f)
         else:
-            print("未找到已保存的索引，开始构建新索引...")
-
             # 2. 加载文档
             print("加载旅游指南文档...")
             self.data_module.load_documents()
@@ -95,11 +94,13 @@ class TravelRAGSystem:
             # 3. 文本分块
             print("进行文本分块...")
             chunks = self.data_module.chunk_documents()
+            print("💾 保存文本分块数据...")
+            with open(chunks_file, 'wb') as f:
+                pickle.dump(chunks, f)
 
             # 4. 构建向量索引
             print("构建向量索引...")
             vectorstore = self.index_module.build_vector_index(chunks)
-
             # 5. 保存索引
             print("保存向量索引...")
             self.index_module.save_index()
