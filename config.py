@@ -2,6 +2,8 @@
 RAG系统配置文件
 """
 
+import os
+from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict, Any
 
@@ -11,7 +13,7 @@ class RAGConfig:
     """RAG系统配置类"""
 
     # 路径配置
-    chunks_path: str= "./saved_chunks.pkl"
+    chunks_path: str = "./saved_chunks_global.pkl"
     data_path: str = "./wikivoyage_global"
     index_save_path: str = "./vector_index_global"
 
@@ -28,7 +30,18 @@ class RAGConfig:
 
     def __post_init__(self):
         """初始化后的处理"""
-        pass
+        env_data_path = os.getenv("TRAVEL_DATA_PATH", "").strip()
+        if env_data_path:
+            self.data_path = env_data_path
+            return
+
+        # Prefer global dataset by default; fall back to SG to keep existing repo usable.
+        global_path = Path("./wikivoyage_global")
+        sg_path = Path("./wikivoyage_sg")
+        if global_path.exists():
+            self.data_path = str(global_path)
+        elif sg_path.exists():
+            self.data_path = str(sg_path)
 
     @classmethod
     def from_dict(cls, config_dict: Dict[str, Any]) -> 'RAGConfig':

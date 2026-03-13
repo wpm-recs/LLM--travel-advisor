@@ -68,7 +68,7 @@ class GenerationIntegrationModule:
         """智能查询重写"""
         prompt = PromptTemplate(
             template="""
-你是一个智能查询分析助手，专门处理有关新加坡旅游的搜索。请分析用户的查询，判断是否需要重写以提高检索效果。
+你是一个智能查询分析助手，专门处理全球旅行相关搜索。请分析用户的查询，判断是否需要重写以提高检索效果。
 
 原始查询: {query}
 

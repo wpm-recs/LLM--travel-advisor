@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+import os
 
 # Langchain imports for Index Construction
 from langchain_core.documents import Document
@@ -19,13 +20,14 @@ class IndexConstructionModule:
 
     def setup_embeddings(self):
         """Initialize the embedding model"""
+        device = os.getenv("EMBEDDING_DEVICE", "cpu")
         print(f"Loading embedding model: {self.model_name}...")
         self.embeddings = HuggingFaceEmbeddings(
             model_name=self.model_name,
-            model_kwargs={'device': 'cuda'},
+            model_kwargs={'device': device},
             encode_kwargs={'normalize_embeddings': True}
         )
-        print("Embedding model loaded successfully.")
+        print(f"Embedding model loaded successfully on device: {device}.")
 
     def build_vector_index(self, chunks: List[Document]) -> FAISS:
         """Build the vector index"""

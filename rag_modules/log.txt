@@ -1,0 +1,1194 @@
+
+======================================================================
+时间: 2026-03-13 15:18:06 | 调用方法: 查询路由 (query_router)
+【完整输入 (Filled Prompt)】:
+Human: 
+根据用户的旅游问题，将其分类为以下三种类型之一：
+1. 'list' - 获取推荐地点列表（不要求给出理由的）
+2. 'detail' - 具体的路线、攻略
+3. 'general' - 其他一般性问题
+
+请只返回分类结果：list、detail 或 general
+
+用户问题: Plan a 4-day Europe city break for Rome with food spots, transport tips, and a mid-range budget.
+
+分类结果:
+------------------------------
+【输出 / 解答】:
+detail
+======================================================================
+
+======================================================================
+时间: 2026-03-13 15:18:09 | 调用方法: 查询重写 (query_rewrite)
+【完整输入 (Filled Prompt)】:
+
+你是一个智能查询分析助手，专门处理全球旅行相关搜索。请分析用户的查询，判断是否需要重写以提高检索效果。
+
+原始查询: Plan a 4-day Europe city break for Rome with food spots, transport tips, and a mid-range budget.
+
+分析规则：
+1. **具体明确的查询**（直接返回原查询）
+2. **模糊不清或过于口语化的查询**（需要重写）
+
+请输出最终查询（如果不需要重写就返回原查询）:
+------------------------------
+【输出 / 解答】:
+Plan a 4-day Europe city break for Rome with food spots, transport tips, and a mid-range budget.
+======================================================================
+
+======================================================================
+时间: 2026-03-13 15:18:50 | 调用方法: 详细攻略[流式] (generate_step_by_step_answer_stream)
+【完整输入 (Filled Prompt)】:
+Human: 
+你是一位专业的旅行规划师。请完全根据指南信息，为用户提供结构化的旅行攻略，不要使用已有知识。
+
+用户问题: Plan a 4-day Europe city break for Rome with food spots, transport tips, and a mid-range budget.
+
+相关指南信息:
+
+==================================================【指南 1】  | 分类: 一般信息
+# Singapore/Riverside
+> Hierarchy: Asia > Southeast Asia > Singapore > Singapore/Riverside
+
+The
+forms a central artery in
+'s densely packed Central Business District (CBD).  The north bank of the river is where Raffles landed and founded his colony, and to this day many central government buildings can be found in the area.  The newer south bank, laden with skyscrapers, is where Singapore's bankers make (or break) their fortunes.  Between the two are the bulk of Singapore's nightspots, found along the riverside streets of
+and
+
+## Get in
+
+The riverside is best accessed by the MRT stations
+(North-South/East-West Lines) for Boat Quay and the Merlion,
+for Raffles Hotel and Chijmes, and
+(North-East Line) for the bars and nightlife. There is no convenient MRT station for the western end of the river though: you'll have to hike on foot for 15 minutes, try to work out the buses, or hop on a bumboat.
+
+## Get around
+
+
+### By boat
+
+A popular way to see the heart of the city is with
+. Stations are scattered along both banks of the river and reservations are not necessary. Prices start at $3 for a short ride.
+
+### On foot
+
+The Esplanade/Merlion/Boat Quay area has some great views of Singapore and makes for a fine walk (or jogging trail if staying nearby). It can get quite hot during the day though; evenings are cooler and breezier, and the nighttime skyline is equally attractive.
+
+## See
+
+The bulk of Singapore's historical attractions are packed by the river, and the best place to start your tour is at the mouth of the Singapore River. While this area has formed the downtown core of Singapore since the early 19th century, sadly, most of the once-iconic shophouses and street markets have given way to modern skyscrapers and shopping centres, and those who wish to experience a more authentic slice of colonial Singapore life would do well to head up north to the Malaysian island of
+instead. Not all is lost though, and several important government buildings and places of worship dating back to the 19th century survive, and provide a rare glimpse into the city's colonial past.
+
+### Monuments
+
+
+#### Cavenagh Bridge
+
+Singapore's oldest bridge and its only suspension bridge, constructed in 1869, now a pedestrian walkway across the mouth of the Singapore River. Note the original sign forbidding cattle to cross. Next to Fullerton Hotel
+
+
+#### Civilian War Memorial
+
+Stands in memory of the civilians who perished during World War II. Mostly bypassed nowadays by underground passages, the memorial is sited above the final resting place of the remains of some unidentified war victims, part of the reason why the CityLink Mall does not travel in a straight line. The four pillars that make up the memorial represent the four main ethnic groups that make up Singapore's population; the Chinese, Malays, Indians and Eurasians. The Chopsticks War Memorial Park, near Beach Rd
+
+
+#### Merlion
+
+Singapore's official symbol, 8.6 metres tall and weighing 70 tons, spouts water daily on the south bank of the mouth of the Singapore river. (The statue previously stood further down the river, but was moved in 2002 after the opening of the Esplanade Bridge.) Designed by the Singapore Tourist Promotion Board in 1964, many a commentator has pondered on the inherent contradictions of a creature that is half-cat, half-fish. Any time of night or day, a steady stream of tourists troops up to see the mythical beast, and a purpose-built pier lets you take pictures with the Merlion and the CBD in the background. When paying your respects, don't miss the bite-sized Mini-Merlion (officially the "Merlion cub"), a mere 2 m tall, 28 m away towards the bridge. Merlion Park Raffles Place MRT exit H, off Fullerton Rd
+
+
+#### Raffles' Landing Site
+
+A statue of Stamford Raffles, the founder of Singapore, is built on the (supposed) exact spot where he first landed. Second only to the Merlion as most popular place in Singapore to take a picture of yourself, and having the skyscrapers and the shop houses of Boat Quay in the background helps to explain why! The statue here is a replica; the original can be found in front of the Victoria Theatre. 1 Empress Place Next to Asian Civilisations Museum
+
+
+#### Tan Kim Seng Fountain
+
+A fountain commemorating Tan Kim Seng, a merchant and philanthropist who donated money to build Singapore' first reservoir, MacRitchie Reservoir, and the accompanying system of waterworks. In Esplanade Park
+
+
+#### Lim Bo Seng Memorial
+
+A pagoda commemorating Lim Bo Seng, a World War II hero. Lim was part of Force 136, a British intelligence operation that was established to aid indigenous resistance movements in Japanese-occupied territory. After being arrested by the Japanese Kempeitai (secret police), Lim refused to divulge any information about his comrades despite being tortured by the Japanese, subsequently dying in prison in 1944 at the age of 35. In Esplanade Park
+
+
+#### The Cenotaph
+
+Built by the colonial government to commemorate the British soldiers born or resident in Singapore who died in World War I. A second dedication was later added on the other side to commemorate the soldiers who died in World War II. In Esplanade Park
+
+
+#### Padang
+
+Originally grown by the British as a cricket ground, it is surrounded by several beautiful colonial buildings, including the old City Hall and Supreme Court. The field itself is used for numerous sporting activities, including as the main cricket ground for the Singapore Cricket Club and the Singapore Recreation Club, and hosts the National Day Parade every 5 years.
+
+
+### Museums
+
+
+#### Battle Box
+
+A former bunker that was the HQ of the British military forces in Malaya during World War II, now turned into an air-conditioned museum complete with animatronic figures retelling the events of the days before surrender. The nearest MRT station is Dhoby Ghaut, but it's a steamy hike up the hill. 2 Cox Terrace (Fort Canning Park) alight at Dhoby Ghaut MRT Station
+
+
+#### Asian Civilisations Museum
+
+Housed in the historic Empress Place Building, this is one of Singapore's newest, largest and best-presented museums. As the name hints, all of Asia is covered in the scope, although naturally there is an emphasis on the cultures near and in Singapore. Also hosts visiting exhibitions. 1 Empress Pl
+
+
+#### National Art Gallery
+
+Opened in 2015 in the former City Hall and Supreme Court buildings, it oversees the world’s largest public collection of Singapore and Southeast Asian art, consisting of over 8,000 artworks. National Gallery Singapore aims to provide an understanding and appreciation of art and culture through a variety of media, focusing on Singapore's culture and heritage and its relationship with other Southeast Asian cultures, Asia, and the world. 1 St. Andrew's Rd
+
+
+#### Mint Museum of Toys
+
+Built to house the 50,000-piece toy collection of local enthusiast Chang Yang Fa, the contents of this five-story building covers come from 25 countries and span over a century of "Moments of Imagination and Nostalgia with Toys" (hence MINT), with everything from wind-up toys to Darth Vader masks. The exhibits are largely hands-off, though, so young children may find the experience frustrating. Guided tours (45 min) available and recommended. 26 Seah St behind Raffles Hotel
+
+
+#### Peranakan Museum
+
+Formerly a branch of the ACM, now reborn as a standalone museum dedicated to the exuberantly colourful culture of the Peranakans, the Malay-Chinese and Malay-Indian traders who had a major impact on the Straits Settlements. The three-story museum covers Peranakan weddings, religion and food with the latest in audiovisual gear. The building, a 1912 pastel blue wedding cake built as a school, is also impressive. 39 Armenian St
+
+
+### Historical buildings
+
+
+#### City Hall
+
+This grand old building has seen many important events occur within and on its front steps. It was the place of the Japanese surrender in 1945 and was also where Lee Kuan Yew declared Singapore's self-governance, and subsequent independence from the British Empire to become part of Malaysia (from which it would later be expelled). Today, it forms part of the National Art Gallery together with the adjacent Old Supreme Court. 3 Saint Andrew's Rd next to the Padang
+
+
+#### Old Supreme Court Building
+
+The Old Supreme Court Building was built in the classical style, featuring Corinthian columns and an allegory of justice set below the main dome. The current Supreme Court Building is right behind and its "spaceship" structure marks quite a contrast between the old and the new. While the building itself is worth a visit, it now also houses part of the National Art Gallery. National Art Gallery 1 Saint Andrew's Rd next to the Padang
+
+
+#### Central Fire Station
+
+The oldest surviving fire station that is in use in Singapore, it also houses the Civil Defence Heritage Gallery which showcases the history of Singaporean firefighting complete with antique fire engines. The station also host open house on every Saturday from 9:00AM to 9:50AM and 10:00AM to 10:50AM, in which visitors can book their visits at this link. Walk-in visits for open houses are possible if the booking quota is not full. 62 Hill St
+
+
+#### Old Hill Street Police Station
+
+This striking Neo-Classical building catches the eye with its multi-coloured window shutters. There's an air-conditioned atrium inside which has a few art galleries and sometimes hosts performances, as part of the larger Ministry of Digital Development and Information. Somewhat fitting use of an old police station. MICA Building 140 Hill St
+
+
+#### Old Thong Chai Medical Institution
+
+Originally built for the Thong Chai Medical Institution, Singapore's first institute of traditional Chinese medicine for the poor. The institution moved to new premises in 1976, and the site is today occupied by Forever Living Products, a multi-level marketing company selling aloe vera products. However, the building has been conserved and is the finest surviving example of traditional Cantonese architecture in Singapore. 50 Eu Tong Sen Street
+
+
+### Religious buildings
+
+As the historical hub of Singapore, there is no shortage of religious buildings that date back to colonial times.
+
+#### St Andrew's Cathedral
+
+Singapore's Anglican cathedral and arguably the most impressive looking church in Singapore. Restoration of the historic nave was completed in 2024. In addition to English services, the cathedral also conducts services in Mandarin and Burmese. 11 St Andrew's Road next to City Hall MRT station
+
+
+#### Armenian Church
+
+Singapore's oldest church and part of the Oriental Orthodox communion. 60 Hill Street
+
+
+#### Yueh Hai Ching Temple
+
+Also known by its Teochew name Wak Hai Cheng Bio, this is the oldest Teochew temple in Singapore, and dedicated to the Taoist goddess Mazu. Look out for the traditional Teochew architectural features of the temple, including the intricate carvings on its walls, and the distinctive "curly grass roof". What distinguishes it from typical Teochew temples in China is the large number of colourful ceramic figurines on its roof depicting scenes from Teochew opera. The temple is home to a plaque bearing the inscription "曙海祥雲" (lit. Peaceful clouds over the Ocean at Dawn), presented by Emperor Guangxu of China in 1899, making it one of only two temples in Singapore bestowed with this honour. 粤海清庙 30B Phillip Street
+
+
+### Parks
+
+
+#### Hong Lim Park
+
+Home to the Speakers' Corner, inspired by its counterpart in London's Hyde Park, and the only place in Singapore where protests are allowed, albeit watched over carefully by the police. Never really used for its purpose until recent issues stirred locals from their apathy, and some sensitive topics such as race and religion remain off-limits. Hosts Pink Dot SG (a 20,000-strong gathering to support gay rights) every June. Foreigners are allowed to watch but may not participate in any protests. Near Clarke Quay MRT
+
+
+## Do
+
+The entire Singapore river area is a lovely place for a walk, with small green gardens, old-style bridges and historical buildings, and the nightlife-rich expanse of Clarke Quay and Boat Quay.
+
+Try a Singapore Sling. Tourists typically head to the supposed birthplace at the Raffles Hotel's Long Bar (see
+section). Alternatively,
+at the Raffles Hotel gives you a chance to experience a little of the grandeur of colonial Singapore, with a more affordable price tag than actually staying there.
+
+#### Victoria Theatre and Concert Hall
+
+Built by the British in the 19th century, this was Singapore's premier arts centre until the Esplanade came and stole the limelight. It still hosts various smaller events that can't fit in (or afford) the Esplanade. History buffs may also want to do a detour: the Raffles statue in front dates to 1887, and the People's Action Party was founded here in 1954, as commemorated with a plaque showing a very young-looking Lee Kuan Yew. 9 Empress Place Raffles Place MRT
+
+If you'd like something a little more adrenaline-laden, head to Clarke Quay:
+
+#### G-Max Reverse Bungy
+
+Get strapped in and flung upwards with a giant rubber band at 200km/h. 3E River Valley Rd Clarke Quay
+
+Jogging along the Singapore River is the best way to combine sightseeing and a workout, but there are two other options right next to Raffles Place MRT if you're willing pay for the air-con.
+
+#### Fitness First
+
+Compact little gym, but there's a rooftop swimming pool, two Jacuzzis and a tennis court. 1 Raffles Place #06-00 OUB Centre
+
+
+#### True Fitness
+
+Cavernous two-floor gym packed with equipment. Busy in the evenings, but come here in the afternoon or weekend and you'll have the place to yourself. 30 Raffles Place #07-00 Caltex House
+
+
+#### Supersmooth
+
+Spread over 279 m² in a charmingly restored shophouse, this day spa offers hair removal (IPL/AFT) for women and men, waxing and skin treatments, with jazz and bossanova playing in the background. 144 Robinson Rd, Robinson Square Level 2
+
+
+#### Ikeda Spa Prestige
+
+Soak in Japanese Onsen or have a nice massage at Singapore's first traditional Japanese spa. Ask for your Japanese snacks after the treatment. 6 Eu Tong Sen Street, #05-22 Clarke Quay Central, 059817 Clarke Quay MRT
+
+
+## Buy
+
+There are some shopping malls of interest around the City Hall MRT station, but serious shoppers will wish to head to
+for their shopping instead.
+
+#### The Arcade
+
+A small shopping mall in the heart of the financial centre. Consists mainly of small shops operated by individual owners, which are unique to the mall. 11 Collyer Quay Next to Raffles Place MRT
+
+
+#### CityLink Mall
+
+For the novelty of an entirely underground mall that links the Riverside district to Suntec City and the Esplanade. You could go round in circles here if you don't pay attention, as the mall starts from City Hall MRT to Esplanade MRT and back again. Brace yourself for the human crush. City Hall MRT
+
+
+#### Peninsula Plaza
+
+A place where the Burmese like to gather for a good meal of authentic home cuisine. Also notable for its concentration of specialist camera stores. 111 North Bridge Rd City Hall MRT
+
+
+#### Raffles City
+
+Large shopping mall directly above the City Hall MRT station. Notable for Jason's Supermarket in the basement, which has probably Singapore's largest selection of gourmet food items. Raffles City Shopping Centre covers most shopping bases, including fashion, books, music, sports, toys, eye wear and beauty stores. A haven for consumers looking for luxury items, it offers downtown shopping at its finest with a number of luxury and designer stores such as Omega, Thomas Sabo, Cortefiel, and Tommy Hilfiger, among others. Raffles City is also home to big department stores like Marks & Spencer and Robinsons, and fashion chains like Topshop, River Island, and Skyla. The mall also has a number of restaurants including modern Australian Double Bay and Brotzeit, and is connected to the Swissotel, home to the Equinox Restaurant and New Asia Bar. 252 North Bridge Rd City Hall MRT
+
+
+#### Funan
+
+Previously the Funan DigitaLife Mall, this mixed-use complex underwent a major 3-year revamp and reopened in June 2019. Some people lamented that the mall is no longer as IT-centric as it was in the past, with more beauty/fashion/food shops and fewer computer/gadgets stores. There are still a good number of camera shops for avid photographers, but no slew of 3rd-party IT specialists like before. Seems on par with Funan's new plan to be an all-in-one commercial/retail/living space for a modern crowd. 107 North Bridge Road Near City Hall MRT
+
+
+## Eat
+
+You're spoiled for choice when eating at the riverside. Prices tend to be slightly inflated by Singaporean standards, so avoid any place that needs to use touts to get customers.
+
+The west end of the river (around Robertson Quay) houses a significant Japanese expat community, and consequently the Japanese restaurants nearby serve up some of the best fare this side of
+, which is located across the road from St Andrew's Cathedral, is the favourite hangout spot for Singapore's Burmese community, and is thus the place to go for authentic Burmese food.
+
+### Budget
+
+
+#### Komalas
+
+McDonald's-style fast food, only they serve vegetarian Indian food on a banana leaf instead of burgers and fries. Worth a visit for the cognitive dissonance and good food, with massive meal sets under $5. 111 North Bridge Rd
+
+
+#### Lau Pa Sat
+
+A nicely done up Victorian-style hawker centre, but a little pricier and hence quieter than most. Quiet during the day, every evening at 7 PM a section of Boon Tat St on the south side is closed to traffic and a long row of very popular satay stalls opens, with seating right on the pavement.  Fatman Satay (Stall #1) generally gets the best reviews, but there are plenty of other good eats to be found. 18 Raffles Quay near Raffles Place MRT
+
+
+#### Song Fa Bak Kut Teh
+
+Popular bak kut teh specialist serving light, peppery Teochew-style pork rib soup, best eaten with salted vegetables (mui choy), dough fritters (you tiao) and rice. Usually packed, but service is fast. 11 New Bridge Rd Clarke Quay MRT, opp Central
+
+
+#### Yong Bak Kut Teh
+
+Well located for late-night snacks, this coffee shop serves up tasty KL-style dark, herbal pork rib soup. $5.30 for a bowl with rice and dough fritters. 233 River Valley Rd corner of Mohamed Sultan
+
+
+#### Sofra Turkish Café & Restaurant
+
+Somewhat localised but cheap and tasty Turkish treats. 100 Beach Rd #02-42/44 Shaw Tower
+
+
+### Mid-range
+
+
+#### Inle Myanmar Restaurant
+
+This very authentic little eatery is run by and for Singapore's tiny Burmese community, many of whom are gem traders in the office block above. The food is an intriguing mix of Thai and Indian influences. Try the chicken curry weekday lunch set. #B1-07 Peninsula Plaza, 111 North Bridge Rd
+
+
+#### Señor Taco
+
+Excellent Mexican by Asian standards, with an inside restaurant area and a casual area under the canopy. Clarke Quay Store 01-12-D by the interior fountain square
+
+
+### Splurge
+
+The best places for a splurge with a view in the evening are
+and
+, which have many riverside restaurants offering
+dining. However, especially on Boat Quay, avoid any restaurant that has to resort to touts to find customers.
+
+#### Gyu-Kaku
+
+Stylish Japanese-style charcoal barbeque joint, with a vast selection of wagyu (Japanese beef) and side dishes. Vegetarians need not apply. 81A Clemenceau Ave #01-18/19 UE Square
+
+
+#### Jade
+
+One of Singapore's best-regarded Chinese restaurants, dinner here can get very expensive indeed, but they're packed on Saturday and Sunday for one of the best deals in town: all you can eat gourmet dim sum made to order for $39, including soup, tea, and signature dishes like black ink squid dumplings and wasabi prawns. Reserve early. 1 Fullerton Square Fullerton Hotel
+
+
+#### Jumbo Seafood
+
+Well-located outlet of the popular seafood chain famed for their chilli crabs, a Singapore speciality. Jumbo has another central outlet at Riverside Point, just across the river from Clarke Quay. 20 Upper Circular Rd #B1-48 The Riverwalk
+
+Another good choice popular with the expat crowd is
+(30 Victoria St), the former Convent of the Holy Infant Jesus, now an atmospheric assemblage of high-end food & beverage outlets near the Raffles Hotel. The former chapel can also be rented as an event venue.
+
+#### Carnivore Brazilian Churrascaria
+
+A real Brazilian churrascaria (barbecue), where waiters walk around with skewers of South American beef and you can eat all the meat you want. churrascos, extensive salad bar, and there's a good selection of wines, cold beer and caipirinha, the Brazilian national drink made with sugar cane. 30 Victoria St #01-30 CHIJMES
+
+
+#### Lei Garden
+
+One of the most expensive Cantonese restaurants in town, this Hong Kong-based restaurant group serves high end cuisine with an emphasis on garoupa, lobsters, prawns, and other seafood. Popular when entertaining business guests, just hope you're not the one who gets stuck with the bill. 30 Victoria St #01-24 CHIJMES
+
+
+#### Prego
+
+Singapore's largest Italian restaurant seating 320, it has a pizzeria, a deli, a wine bar, and the main restaurant. Good for their pastas and pizzas, the calamari rings, and mushroom soup is also good for a start. The tiramisu is another highlight. 80 Bras Basah Rd Fairmont Singapore 1F
+
+
+## Drink
+
+Singapore's nightlife is almost entirely concentrated near the river. The main areas are
+, on the south of the river next to the financial district (MRT Raffles Place, exit G) and
+on the north bank a few blocks inland (MRT Clarke Quay or Fort Canning). Less well known but also worth a look are
+, parallel to Boat Quay just behind it, and
+, at the western end of the river. Bars and pubs come and go with dizzying speed, so just head out and find today's hip spot. All four are within crawling distance of each other.
+
+The nightlife scene across all the Quays took a big hit from COVID and another when the licensing for serving liquor past 10:30pm was tightened up. There are still plenty of places to grab a drink, but don't expect a heaving late-night party scene.
+
+### Bars and pubs
+
+
+#### Brewerkz
+
+Singapore's first microbrewery, opened 1997 and still going strong. There are now several franchises, but this is the original. Their brews run the gamut from classic pilsners and pale ales to wacky seasonal specials (Guava Sour, anyone?), also available in handy 4-glass sampler sets ($18). Indoor and outdoor seating, with a wide range of pub grub in huge portions. 30 Merchant Rd #01-05/06 Riverside Point, opp Clarke Quay
+
+
+#### Equinox
+
+The five bars and restaurants here offer the best nighttime views of the city, but prices are correspondingly expensive ($15 and up for a drink). For a cigar and live jazz, head to CitySpace (floor 70), while New Asia  is a more casual place for a drink. Entry is through the Swissotel entrance on Stamford Rd. 2 Stamford Rd
+
+
+#### Harry's Bar
+
+The favourite watering hole of Nick Leeson, the "Rogue Trader" who brought down the 233-year-old Barings Bank and was once arrested here for indecent exposure. There are now franchises all over town, but this is the original. Try the Bank Breaker, an unlikely shot of whisky and Midori, which like Leeson's escapades goes down smooth but leaves a bitter taste in your mouth. Live music most nights. 28 Boat Quay
+
+
+#### Long Bar
+
+The supposed birthplace of the Singapore Sling, a syrupy sweet pink concoction of gin, cherry liquor, and other mysterious ingredients, often including pineapple juice. The two-floor bar is large and a bit of a tourist trap, but drinking a Sling at the beautifully decorated wood-paneled bar and throwing the accompanying peanut shells on the floor should be on every visitor's agenda — if you can stomach paying $36 for a premixed drink poured out of a pitcher. The current recipe is likely sweeter than the original recipe, but you can ask for a drier version. According to one historian, slings were popular in Singapore even before their supposed invention at the Raffles' Long Bar in 1915. Moreover, the Long Bar has moved from its original location within the hotel. 1 Beach Rd Raffles Hotel, 2nd floor
+
+
+#### Pump Room
+
+Very popular microbrewery/bistro at the heart of Clarke Quay. Full menu. Indoor and outdoor seating. Live music nightly (except Mondays). 3B River Valley Road, The Foundry Clarke Quay
+
+
+#### Timbre
+
+In a beautifully renovated colonial house opposite Boat Quay, this has some of the best views in town and is one of only a few places in Singapore specializing in local live music. Indoor and outdoor seating. 1 Old Parliament Lane #01-04 The Annex at The Old Parliament House
+
+
+### Cafes
+
+
+#### Cat Cafe Neko no Niwa
+
+Singapore's first cat cafe, inspired by the Japanese. Customers can cuddle cats or just watch them peacefully. However, drinks can only be consumed outside the enclosed area. Reservations are recommended as there are a limited number of people allowed at one time. 54A Boat Quay (Level 2)
+
+
+### Nightclubs
+
+At all clubs listed below, arrive early (or very late) because otherwise you may be stuck in line for a while. ID is theoretically required but rarely checked.
+
+#### Zouk
+
+Singapore's best-known nightclub and in fact a complex of 4 spaces: Zouk for harder dance music, Capital for loungier stuff, Phuture for experimental edge and the RedTail Bar for chilling out. Prices vary per event, but start from $45/35 for men/women, usually including two drinks. The place is happening especially when foreign DJs are in town — which is more often than not! No shorts or sandals. 3C River Valley Road, #01-05, The Cannery
+
+
+## Sleep
+
+Unless you're a shopping maven intent on maximizing time in
+'s shopping malls, the riverside is probably the best place to stay in Singapore.
+
+### Mid-range
+
+There is a large cluster of older mid-range hotels on and near
+at the western end of river.  Havelock MRT station now offers good connections to
+and
+, while
+serves Chinatown and Clarke Quay.
+
+#### Carlton Hotel
+
+Very much a standard-issue, slightly older business hotel, but it's clean, comfortable and very well located. 76 Bras Basah Road
+
+
+#### Copthorne King's
+
+The former King's Hotel, given a thorough renovation when taken over by the Copthorne group and now looks (almost) brand new. Tower wing rooms are good, main wing less so. The primary downside is the somewhat inconvenient location near the west end of the river, although Mohammed Sultan is within striking distance. 403 Havelock Rd Havelock MRT
+
+
+#### Holiday Inn Atrium
+
+Formerly the Concorde Hotel, the 30-floor inner atrium is indeed impressive, but the rest of the hotel is looking old. 317 Outram Road Havelock MRT
+
+
+#### Robertson Quay Hotel
+
+Partly renovated rooms, a little limited breakfast, Internet available for a fee. Really good value for money especially if you just want a place to sleep and keep your stuff when visiting Singapore. 15 Merbau Rd In a round building where Clemenceau Ave crosses the river. MRT: Clarke Quay or Dhoby Ghaut
+
+
+#### Holiday Inn Express Clarke Quay
+
+New hotel close to Clarke Quay. Small but excellent rooms, included breakfasts, and a rooftop area with pool. 2 Magazine Rd
+
+
+### Splurge
+
+In addition to the hotels below, check out adjacent
+, which has a major cluster of high-end hotels.
+
+#### Fairmont Singapore
+
+Formerly Raffles the Plaza and the world's tallest hotel, now neither but still one of Singapore's best hotels: unbeatable location, good service. The South Tower rooms are newer than the North Tower. Pool shared with the adjacent Swissotel The Stamford and thus crowded at peak times. 80 Bras Basah Rd directly above Raffles Place MRT
+
+
+#### Naumi
+
+A hip hotel 5 minutes walk from City Hall MRT. 40 rooms and suites. 41 Seah St
+
+
+#### Raffles Hotel
+
+A Singaporean icon offering luxury in colonial style, founded in 1887 by the legendary Sarkies brothers, who also founded Penang's Eastern & Oriental Hotel and Yangon's Strand Hotel. Known as the birthplace of the Singapore Sling and the final stand of Singapore's last tiger, shot in the Billiards Room. Famed for super-attentive service, with more staff than guests, but it's also one of the most expensive hotels in Singapore!. 1 Beach Rd
+
+There are some luxury hotels of note scattered elsewhere on the river.
+
+#### Fullerton Hotel
+
+In the magnificently refurbished former General Post Office, this is Raffles' closest competitor (in price as well) with an excellent location facing the Merlion on the south side of the river; the third-floor pool has some of the best views in town. Rooms are modern in style, but starting to be a little overdue for renovation. For the best views it's worth paying a little extra to avoid the Courtyard rooms and get a Quay or better. Guests also get access to the facilities at the Fullerton Bay across the road. There is a heritage gallery in the main building which is freely accessible even if you are not staying at the hotel. 1 Fullerton Sq
+
+
+#### Grand Copthorne
+
+The flagship of the Millennium & Copthorne chain and the only luxury hotel at the west end, but unfortunately the pomp of the lobby and exterior are not matched by the spacious but otherwise somewhat dumpy rooms. 392 Havelock Rd
+
+
+#### Swissotel Merchant Court
+
+This large 476-room hotel has an excellent location on Clarke Quay right next to the MRT station, but the rooms are musty and those facing the river suffer from noise from partygoers whooping it up. 20 Merchant Rd
+
+
+#### Ascott Raffles Place Singapore
+
+One- and two-bedroom suites, the property has a restaurant open for all three meals, an infinity swimming pool and also provides free IDD calls to selected countries. No 2, Finlayson Green
+
+
+#### Park Hotel Clarke Quay
+
+1 Unity Street
+
+
+#### Grand Park City Hall
+
+10 Coleman Street
+
+
+## Cope
+
+
+### Laundry
+
+
+#### Systematic Laundromat
+
+One-day laundry service (no self-service available). Call ahead for pricing or they may charge you a hefty "tourist tax" of up to 200%. 11 Unity St #01-22
+
+
+【指南 2】  | 分类: 一般信息
+# Singapore/East Coast
+> Hierarchy: Asia > Southeast Asia > Singapore > Singapore/East Coast
+
+The
+is largely residential and offers few sights as such; most visitors just cross it on their way from and to
+. For Singaporeans, on the other hand, the main attractions are
+and the
+: this is the home of many of Singapore's culinary icons. The true home of Singapore's Malay community is in
+, traces of Peranakan and Eurasian culture still linger in
+, the fleshpots of
+offer cheap lodging and late-night food, and the East Coast also offers Singapore's solitary flashback to the past, the rustic little island of
+
+## Get in
+
+The
+runs the length of the east coast all the way from the centre to Pasir Ris and Changi Airport.  The parallel
+runs further south through Katong and Marine Parade, but it will not reach the airport until 2026.
+from Changi Airport to Orchard Road is a slower but more scenic alternative.
+
+The
+travels up to Sengkang and Punggol in the island's northeast, but not to very many places of interest for even the most determined of travellers. The transport enthusiast might like the
+, a small light rail network that traverses row upon row of apartment blocks.
+
+If you've got one day to spare, consider taking in the Changi Chapel and Pulau Ubin, with a lunch break at Changi Village and a seafood spread for dinner.
+
+## See
+
+Tourist literature usually hawks the restored (and, in the daytime, near-empty) Arab Street near
+, but
+is the true home of Singapore's Malay community. Especially during the Islamic month of
+leading up to
+(Eid ul-Fitr), the entire area lights up in celebration as people eat and shop in the
+(night markets) in the evenings after the sun goes down.
+
+The quiet Changi area has been left relatively untouched by redevelopment and hence retains a lot of significance for its World War II history, including several dilapidated but still-standing British military buildings. The rather serene Changi Beach was once a site of the
+massacre, which saw the occupying Japanese "cleanse" the local Chinese population by executing anywhere from 50,000 to 100,000 young men suspected of having anti-Japanese tendencies. The now-abandoned Old Changi Hospital is a former British military hospital that is reputed to be one of the eeriest buildings in Singapore, while the Selarang Barracks and Roberts Barracks which hold the
+are off-limits to the public.
+
+#### Changi Chapel and Museum
+
+Singapore's memorial to the notorious World War II Japanese POW camp, the setting of James Clavell's King Rat. The current site is a reconstruction and in a different location, but contains a replica of the original chapel and informative exhibits about the squalid conditions of the prison. 1000 Upper Changi Rd North Bus 29 from Tampines MRT or Bus 2 from Tanah Merah
+
+The East Coast's second area of historical interest is
+and
+, which retain a smattering of traditional shophouses and shops specializing in
+crafts and food. Another important community in Katong is the
+community, who as the name suggests, are people of mixed European and Asian descent. Joo Chiat Road has grown into the favourite hangout spot of the
+community, and thus has several Vietnamese restaurants to cater to that crowd. Marine Parade MRT, at the southern tip of Joo Chiat Rd, is the easiest way to reach the area.
+
+#### Koon Seng Road
+
+A section of this short street, between Joo Chiat and Still Rds, has what are probably Singapore's prettiest Peranakan-style shophouses. Houses on one side of the street are multicoloured, while the other has more soberly decorated shophouses with elaborate flower-themed curlicues.
+
+The Northeast is mostly residential and newly developed, but is still home to a few farms.
+
+#### Kampong Lorong Buangkok
+
+Come here for a throwback to Singapore's yesteryears. This is the only surviving village on the mainland of Singapore, and one of only two in Singapore (the other is on the offshore island of Pulau Ubin). Visitors are welcome to walk around the village, but there are no shops or restaurants. Be sure to respect the residents' privacy and do not peer into their houses without their permission.
+
+
+#### Japanese Cemetery
+
+Established in 1891, this cemetery contains the graves of many Japanese settlers, including that of Otokichi, the first Japanese person to establish residence in Singapore. The cemetery also contains a prayer hall built in a traditional Japanese architectural style, and a memorial to Japan's war dead from World War II built by Japanese POWs after Japan's defeat to the Allies. There are also numerous unmarked graves of karayuki-san, Japanese women from poor families who were trafficked to Singapore to work as prostitutes from the late 19th century up to World War II.
+
+
+## Do
+
+The best bits of eastern Singapore are its
+. In addition to the ones below, try Pasir Ris or Punggol to really get off the tourist trail. Camping and barbecue permits for all parks are available at
+
+### East Coast Park
+
+
+#### East Coast Park
+
+The largest park in Singapore and a highly popular hangout for couples, groups of friends and families. You can take Bus 401 there (only operates on Saturdays from 2PM to 10PM and Sundays from 10AM to 8PM). It goes past East Coast Park Service Road. The water's on the murky side, but the (imported) white sand, palm trees, and rollerbladers zooming past on the promenade make up for it. People’s Association PAssion WaVe (PAWV) rents watersports gear (kayak $5/hr, windsurfing, etc), while Ski 360 offers cable-towed wakeboarding (from $32/h). Bicycle rental is available. There are other interesting things to do like prawning over at Carpark C3 near Burger King, and you get to grill your fresh prawns (if you catch any in the first place). People watch or try some fishing at Bedok Jetty or shoot the breeze with your buddies over a nice cold beer at Harrys. For travellers who want a taste of extreme sports, remember to check out the huge Xtreme Skatepark at F1 carpark or spend an afternoon learning to rollerblade from professional instructors at Inline Fitness. You can walk over to East Coast Lagoon Food Village for a nice plate of satay or yummy stingray after all that workout! The most recent attraction is the Coastal PlayGrove, opened in March 2021 at the former Big Splash site: features include a dry play area with tall slides and nets, a water play area, an outdoor classroom in close proximity to nature, a multi-purpose event lawn, and several retail tenants including F&B vendors.
+
+
+### Changi
+
+
+#### Pulau Ubin
+
+Singapore's flashback to yesteryear, a little island off the northern coast where people still live in fishing villages in houses on stilts. The island is covered in biking trails and is an excellent spot for a little steamy jungle offroading. The 45 hectare Ketam Mountain Bike Park has a good 10 km trail. Bike rentals go for as low as $2 a day, up to $15 or more. Make sure to test out your bike thoroughly before renting it - don't assume that you're getting what you pay for. The bike rental vendors are very competitive, and cheaper bikes can sometimes be better than more expensive ones. At the east end of the island, reachable by bike or shuttle bus from the jetty, are the Chek Jawa Wetlands, with a mangrove boardwalk, an observation tower and a visitor centre. Access to the island requires a bit of effort though: take the MRT to Tanah Merah, then ride Bus 2 to the bus terminal in Changi Village (alternatively MRT to Simei, then Bus 9 that passes Changi Village or Bus 29 that loops at Changi Village Bus Terminal from Tampines Bus Interchange), find the jetty, and hop on a bumboat ($2.50 each way) for the 10 min ride to the island. bumboat from Changi Village
+
+
+#### Changi Beach
+
+Right next to Changi Airport, you can watch (and hear) the neverending parade of aeroplanes from here. You can take Bus 9 from Bedok or Simei MRT, Bus 19 from Tampines Bus Interchange or Bus 89 from Hougang Bus Interchange. All 3 buses pass by Nicole Drive, which is adjacent to Changi Beach. Usually full of local picnickers, but not too many sunbathers or swimmers around. If you keep walking east, you'll eventually loop around Changi Airport and some 15 km later arrive at East Coast Park, but most of the route is inland, unshaded and featureless. near Changi Village
+
+
+#### Changi Boardwalk
+
+A boardwalk that hugs the scenic Changi coastline from Changi Beach Club to Changi Sailing Club. near Changi Village
+
+
+### Sports
+
+
+#### Singapore Sports Hub
+
+Singapore's main sports and recreation district. Singapore may be a sporting minnow, but it nevertheless hosts several world class tournaments that attract the top athletes from around the world. The National Stadium is the centrepiece of the Sports Hub and hosts the Singapore Sevens rugby tournament. The Indoor Stadium hosts the Singapore Open badminton tournament, while the OCBC Arena hosts the Singapore Smash table tennis tournament. Kallang MRT
+
+
+### Other
+
+
+#### Gallop Stable
+
+Singapore's first public riding school. Ponies only, maximum weight for riders, . 61 Pasir Ris Green 10 minute walk from MRT Pasir Ris
+
+
+#### Forest Adventure
+
+Live out your Tarzan in the jungle fantasies by completing this two-hour obstacle course: swing from trees to trees, climb rope ladders and finally, abseil down across the reservoir. Kids Course minimum age/height 5 years/1.1 m, Grand Course 10 years/1.4 m (under-18s must be accompanied by adult). Advance booking required. 825 Bedok Reservoir Rd
+
+
+#### Mangrove Boardwalk at Pasir Ris Park
+
+One of the few remaining stretches of mangroves in Singapore. You can spot mudskippers, fiddler crabs, and a wide variety of butterflies. 60 Pasir Ris Drive 3
+
+
+#### Downtown East
+
+A recreational hub in Pasir Ris with an offering of entertainment and lifestyle options, the most famous attraction probably being the Wild Wild Wet water theme park. Other offerings include the Hi Roller indoor skating rink, Cathay Cineplexes, a few darts cafes, and a couple of karaoke spots. There are also the usual F&B and retail tenants typical of local malls. 1 Pasir Ris Close
+
+
+## Buy
+
+
+#### Geylang Serai Market
+
+The heart of Singapore's Malay community and long one of the most atmospheric markets in Singapore, the original dense warren was unceremoniously demolished in 2006. The new version, opened in 2009, is a bland, vaguely Malay-styled two-storey building, but it still has a wide array of Malay and Middle Eastern goods and gets positively packed around Ramadan. 1 Geylang Serai 10 min from MRT Paya Lebar
+
+There's a mall or shopping area at every MRT stop.
+and
+are the main shopping centres in the Marine Parade area. Parkway Parade has a cluster of money changers on the first level in its forecourt that generally give good exchange rates.
+Tampines is a shopping hub. There are three malls (
+, and
+) near the MRT station.
+Serangoon also has a huge mall,
+, with the standard shops and food on every floor. The roof garden has a dog park if you get tired of humans.
+
+## Eat
+
+The East Coast is home to many of
+'s best-known dishes, including
+and
+. The stretch of
+between
+and
+MRT stations is arguably the most vibrant part of Singapore. Despite being famous as Singapore's largest red light district and for its abundance of sleazy karaoke bars, the area is also home to some of Singapore's best kept culinary secrets, and is a favourite for locals heading out for supper with friends. Don't expect air conditioning, white tablecloths, and sommeliers though. Most budget and mid-range eateries here are in grungy but occasionally atmospheric 19th-century shophouses. It is also often dubbed Singapore's "New Chinatown", and accordingly is home to a large number of recent immigrants and expatriates from mainland China, with a high concentration of restaurants serving authentic mainland Chinese cuisines, and a number of supermarkets selling mainland Chinese products that are hard to find elsewhere on the island. You'll find quite a few fruit stalls open as well, selling durians, mangosteens, rambutans and other Southeast Asian fruits. If you're game for it, buy some and eat them right there at the roadside tables.
+
+As the heart of Singapore's Malay community, the
+is unsurprisingly the place to go for some
+is the favourite hangout spot for Singapore's Vietnamese community, and thus home to numerous eateries serving the most affordable and authentic Vietnamese food in Singapore. It is also home to Singapore's only Vietnamese grocery store where you can get imported ingredients from Vietnam should you want to try cooking at home.
+(Near Paya Lebar MRT station) is the favourite hangout spot for the Indonesian community, and as expected, is home to some of the cheapest and most authentic Indonesian food on the island.
+
+### Budget
+
+is the undisputed home of
+, the coconutty noodle soup that's one of Singapore's national dishes, but there's still plenty of dispute about who came up with it first and who does it best. Famous 49 Katong Laksa had a claim as the very first and has since moved to the west side of Singapore, perhaps finally marking an end to the Katong
+wars.
+
+#### 328 Katong Laksa
+
+This was one of the combatants of the "laksa wars" of yore. Now franchised all over Singapore, but this is the original, still supervised by the owner. Do try the otah (spicy fish paste). 51 East Coast Rd Across the street from #49
+
+
+#### Marine Parade Laksa
+
+Run by the people who originally ran #49, although some think the quality has gone down (see Zhen Shan Mei in Jurong for the competition). 59 East Coast Rd #01-57/59
+
+Go to
+, possibly the best collection of hawker food in Singapore, and now even easier to reach using the Circle Line (it's a short walk from Dakota MRT station). From noodles to satay to seafood, the food here is widely acclaimed and Singaporeans come from all around for dinner
+which unfortunately means a crowded car park and even more crowded tables. Just follow the queues and you won't go wrong.
+
+#### Chuan Kee Satay
+
+Satay freshly grilled and served with peanut sauce. Extremely long wait, so order the pork satay first and then look for other things to eat. Old Airport Road Food Centre #01-85
+
+
+#### Mattar Road Seafood BBQ
+
+One of the few places where you can order crab and still have money to spend elsewhere. They're famous for their chilli crabs, but the white pepper crab is something different to try. Old Airport Road Food Centre #01-63
+
+
+#### Whitley Road Big Prawn Noodle
+
+Exactly as it says, big prawn noodles, although the number of prawns depends on the size of the bowl ordered. All that flavoursome soup comes from prawn heads. Old Airport Road Food Centre #01-98
+
+For a nicer seaside atmosphere,
+in East Coast Park is a popular food destination and quite possibly the nicest hawker centre in Singapore, with lush greenery and occasional sea breezes. If you're savvy, the seafood here is a much better choice than the pricier restaurants in the nearby East Coast Seafood Centre. Get here by cab (or by bus as noted in
+
+#### Kampong Rojak
+
+Rojak with sweet dark sauce, quality prawn paste and generous portions of cucumber, pineapple and you tiao (dough fritters). Stall 9 East Coast Lagoon FC Near car park
+
+
+#### Leng Heng BBQ Seafood & Claypot Deluxe
+
+A Makansutra legend, their black pepper crabs are fiery and not for the faint hearted. They have giant prawns fresh from the sea and the BBQ stingray is yummy as well. Stall 6 East Coast Lagoon FC Near the beach
+
+
+#### Musa Ikan Bakar Stall
+
+There are at least ten satay stalls here with not much difference between them. Musa's thick and chunky peanut satay sauce stands out though, cooked by the owners. Stall 51 East Coast Lagoon FC
+
+There are plenty of other famous yet cheap eats in the neighbourhoods of the East Coast. You might have heard of the original Jalan Kayu
+, but it has long passed its prime.
+(near Tanah Merah MRT) has grown in popularity for its cluster of late night prata shops, and while the food is not particularly outstanding, the wide range of open air eateries make it a great place to eat late suppers, drink beer, and watch football on giant TV screens. Some well-known but more difficult to reach hawker centres are
+at Serangoon and
+
+#### International Muslim Food
+
+This nondescript stall has a neverending queue for Singapore's best nasi lemak, Malay-style coconut rice with fried chicken, chili, egg and various goodies. Quite honestly, it's not that different from what you'll get elsewhere, but the fast turnover alone means that it's fresh and tasty. Blk 2 Changi Village Rd #01-03
+
+
+#### Guan Hoe Soon Restaurant
+
+One of Singapore's most popular Peranakan restaurants, serving distinctive Peranakan dishes such as ayam buah keluak, chicken with keluak nuts, and babi pongteh, a pork stew. 38/40 Joo Chiat Place
+
+
+#### Kim Choo
+
+Housed in an old Peranakan shophouse, Singaporeans know this shop best for its Peranakan-style rice dumplings (nyonya chang), but they've opened up their second story for visitors and also operate a Peranakan restaurant and gift shop with pottery, bead-work, kebayas and more. While most of what you see comes from China (as it did even back in the old days), some of their wares are still made in Singapore, and they conduct regular cooking and arts classes. 109/111 East Coast Rd
+
+
+### Mid-range
+
+The red-light district of Geylang is also known for its culinary delights. Shops here tend to be no-frills affairs, but the food can be great and prices are reasonable. Katong and Siglap are other two main areas of mid-range eateries on East Coast Road.
+
+#### He Ping Restaurant
+
+Serves excellent claypot chicken rice, cooked over a charcoal fire. All freshly made to order, this can cause lengthy queues during the busy weekends. 148 Sims Ave Off Lorong 19
+
+
+#### Lion City Frog Leg Porridge
+
+Famous for their (spicy) Gong Bao frog leg porridge. You can also order some of the beef kway teow from the stall on the opposite side of the street and they'll bring it to your table. 235 Geylang Rd off Lorong 9
+
+
+#### Quentin's The Eurasian Restaurant
+
+One of the few restaurants in Singapore serving the distinctive cuisine of the Eurasian community. Some of their signature dishes include devil's curry, shepherd's pie and sugee cake. 139 Ceylon Road
+
+
+### Splurge
+
+Above all, the East Coast is associated with
+, which is often excellent, but always rather pricey; check prices before you order! The two primary clusters are in and near
+on the
+further out, and
+nearer to the city. Some better known restaurants:
+
+#### Jumbo Seafood
+
+Best known for its chilli crabs. Other outlets at Riverside Point (opposite Clarke Quay), Serangoon Gardens, Changi, and Riverwalk, but this is the original. 1206 and 1208 East Coast Pkwy
+
+
+#### Little Red House
+
+Another chilli crab joint. East Coast Pkwy
+
+
+#### Long Beach Seafood Restaurant
+
+Known for a wide variety of seafood including black pepper crab and butter crayfish and one of the most crowded seafood restaurants in the East Coast area on weekends. One should also try the duck they serve, which is prepared in a unique way and is available only at the main branch. Other branches can be found in Jurong East and Marina South. 1018 East Coast Pkwy
+
+
+#### The Mango Tree
+
+Offers Kerala-style Indian seafood in a tastefully decorated restaurant, quite unlike the raucous Chinese places above. Plenty of vegetarian options too. 91 East Coast Road Katong
+
+
+#### No Signboard Seafood
+
+Started as a tiny hawker stall too poor to afford a signboard, now franchised across the island with, inevitably, large neon signboards proclaiming "No Signboard". Known for white pepper and butter crabs. outlets at ECP and Kallang Oasis
+
+
+#### Sin Huat Seafood
+
+Looks very unassuming, but the crab bee hoon stewed in rice noodles is legendary. Cooked to order, so expect to wait up to an hour and expect "legendary" service as well: they won't serve you if you are eating duck rice from the neighbouring shop. Prices have gone up since the shop was featured on Anthony Bourdain's TV show. 659-661 Geylang Rd off Lorong 35
+
+
+## Drink
+
+There are only a few places to drink on the East Coast. East Coast Road has over 30 excellent bars and restaurants, clustered around
+and
+. Joo Chiat Road has many bars, but also many "karaoke" joints. The most infamous of all is
+(adjacent to but distinct from Geylang Serai), which is Singapore's largest red-light district. Rule of thumb is, the establishments on even-numbered alleys (
+) are brothels, those on odd-numbered lorong are not.
+
+Geylang is a "Liquor Control Zone", meaning that public consumption of alcohol is prohibited outside licensed venues on weekends and public holidays.
+
+#### Georges Mad Bar and Cafe
+
+Laid back and cosy ambience with a good range of beers and spirits. The pub food is average. 693 East Coast Rd Siglap
+
+
+#### Next Door Cafe
+
+A European-style cafe perfect for pizzas, sandwiches and salads. Also offers a wide range of alcoholic & soft drinks. Books, magazines and board games also available. Perfect place to chill out for lunch and dinner. 699 East Coast Rd Bus 40 from the Bedok Bus Interchange will stop directly opposite the cafe
+
+
+#### Vic's Wine Bar
+
+A great place to unwind, meet friends and enjoy excellent wine from Vic's own Australian vineyards. Joo Chiat Rd
+
+
+#### Vie Cafe
+
+Wide selection of wines, whiskeys, beers and other spirits. 914 East Coast Rd Siglap
+
+
+## Sleep
+
+Most of the East Coast's accommodation consists of cheap hotels in and around the red-light districts of
+and
+, many of which rent rooms by the hour. The ubiquitous
+chain alone has 11 hotels in the area. Still, if you're on a budget and don't mind the local nightlife, Geylang/Joo Chiat are definitely worth considering: the rates are among the cheapest in town, the late night eating options are unparalleled, the area is perfectly safe, and both the airport and the city aren't too far away and accessible by MRT.
+
+See also
+for hotels within or very close to the airport.
+
+### Budget
+
+is allowed in designated areas of Changi Beach Park, East Coast Park, Pasir Ris Park and Pulau Ubin. All have showers and toilets and are free to use for stays of up to five days, although you will need someone with a Singapore ID to apply for a
+on your behalf at last 14 days in advance.
+
+#### Betel Box Hostel Singapore
+
+Free bed linen, use of a security locker, free 30-min broadband Internet access, free unlimited Wi-Fi, free use of fitness centre. All rooms are air conditioned and there are hot and cold showers. 200 Joo Chiat Rd, Katong District Paya Lebar MRT
+
+
+#### Urban Hostel (Backpackers)
+
+Budget accommodation for backpackers, there are private rooms of 2 beds, female dorm room with 4 beds, mixed dorm with 6 beds and 8 beds which gives you a lot of choices. Provides 24 hour check in, free Wi-Fi, free coffee and tea, big LCD TV and DVD and a wide movie selection. Devastating online reviews. Think twice before going to this place. 67A Lor 27 Geylang 1 min walk from Aljunied MRT station
+
+
+#### WOW Hostel
+
+Brand new boutique hostel, with privacy wall. Good security with card access. Great to have universal power point, USB charger, and reading light on every bed. Clean, safe, good beds, powerful air-con, free Wi-Fi, free Internet (no limit), free breakfast. Lockers free of charge. Good water pressure hot/cold showers. Very close to MRT, Library, Olympic-size swimming pool. 67B Lor 27 Geylang 1 min from Aljunied MRT Station
+
+
+## Connect
+
+has a slew of cheap Internet cafes. Try
+at 63 East Coast Rd or
+at 67 East Coast Rd, both offering rates of $1/hour.
+
+## Cope
+
+
+### Laundry
+
+
+#### Mrs Laundry
+
+$6 for 4 kg of laundry, returned in 2 business days depending on weekday or weekend collection. Free delivery over $30. 298A Bedok Rd Bedok Shopping Complex
+
+
+#### Systematic Laundromat
+
+Self-service laundromat. 30 min washing machine for up to 6 kg of laundry for $6, then $1/8 min cycle of the dryer. 80 Marine Parade Rd #04-K1/K2 Parkway Parade, 15 min from Eunos MRT
+
+
+#### Wonder Wash
+
+Self-service laundromat. 32-min washing machine for up to 8 kg of laundry for $4, then $1/10 min cycle of the dryer. 1 Lorong 23 Geylang, High Point 5 min from Aljunied MRT
+
+
+## Stay safe
+
+Being Singapore's largest red light district, Geylang has a reputation for being seedy. However, as long as you use your commonsense and do not get into drunken fights, it is generally safe to walk around. Be wary of unlicensed peddlers selling aphrodisiacs in the street; these drugs are illegal, and people have been hospitalized or even died from consuming them. Also be sure to avoid the prostitutes soliciting business in the street; those ones are illegal, and the risk of contracting sexually-transmitted diseases is much higher from them. They could also be underaged, and it is a crime to engage a prostitute under the age of 18; ignorance is not accepted as an excuse.
+
+## Go next
+
+Head back to the
+or visit
+for more WWII historical sites.
+
+【指南 3】  | 分类: 一般信息
+# Singapore/Little India
+> Hierarchy: Asia > Southeast Asia > Singapore > Singapore/Little India
+
+is, as the name promises, the centre for the large Indian community in
+. While a rather sanitised version of the
+, Little India retains its distinct identity without degenerating into a mere tourist attraction and is one of the most colourful and attractive places to visit in Singapore.
+
+## Get in
+
+(North-East/Downtown line interchange) or
+(North-East line) are the most convenient MRT stations near Serangoon Road.
+station on the East-West line is an 11-min walk away (see
+(Downtown line), near Sim Lim Square, is 6 minutes walk.
+
+## Get around
+
+Little India's main drag is
+, which starts at Rochor Canal Rd and continues northward to Serangoon. The action is tightly concentrated a few blocks on either side of the road, and can be easily covered on foot.
+
+There are several public buses travelling along the length of Serangoon Road from the bus stop, Tekka Ctr (ID 07031).
+
+Hailing a taxis can be difficult on the crowded main streets like Serangoon Road or Race Course Road. Consider booking through a ride-hail or taxi app at a location away from the main street (Serangoon Road), where there are strict restrictions on where vehicles may stop.
+
+## See
+
+Little India's primary attraction is the district itself. Here too you can find the gaily painted shophouses that are an icon of Singapore, but now most of the Chinese signs (almost) disappear to be replaced with Tamil, Hindi, Bengali and other Indian scripts. Stores hawk
+and gold bangles, spices and incense waft in from the doorways and Bollywood's latest soundtracks blare from every other alleyway.
+
+#### Sri Veeramakaliamman Temple
+
+Little India's busiest and oldest temple, dating back to 1881 — although the present structure was completed in 1986. The temple is particularly busy on Tuesdays, Fridays and Sundays. Be sure to take your shoes off before venturing inside. 141 Serangoon Rd
+
+
+## Do
+
+The most extreme thing to do in Little India is to join the festival of
+, held yearly during the full moon in the lunar month of Thai (usually Jan/Feb). Male devotees attach ornate shrines to their flesh with piercing hooks known as
+and walk across town in a day-long procession. Female devotees usually just carry a pot of milk on their head and join the procession. The procession starts from Sri Srinivasa Perumal Temple in Serangoon Road and proceeds to the Sri Thandayuthapani Temple at Tank Road.
+
+Around
+, the Hindu festival of light, Serangoon Road is festively decorated (with lights, of course!) and open-air markets are set up to sell Deepavali goodies. Like Thaipusam, the exact date is set by the lunar calendar, but it takes place in October/November (usually on the new moon day occurring in these months) and is a public holiday. Near the beginning of Deepavali, the fire-walking festival of
+is held, in which many male devotees walk across a platform of burning coal. Although the actual fire-walking takes place at the Sri Mariamman Temple in
+, the procession starts at the Sri Srinivasa Perumal Temple in Serangoon Road and makes its way to Chinatown early in the morning where the fire-walking commences.
+
+A more low-key event happens every
+when a half-million workers from the subcontinent throng the streets of Little India to hang out on their day off. Most of the crowd is friendly enough, but inevitably a few get into drunken fights and there's a heavy police presence about to keep an eye on things.
+
+## Buy
+
+The central streets of Little India are packed with stalls selling all sorts of Indian goods. Two giant shopping centres, however, are unique not just in Little India but all of Singapore:
+
+#### Mustafa Centre
+
+Singapore's supreme discount department store: floor after floor of absolutely everything at competitive prices, ranging from Rolex watches and washing machines to fresh mangoes, bags of lentils and tailored suits. The gold jewelry floors, now located in an annex, are a sight to behold, and the exchange counters in front are probably the best place in Singapore to exchange money at competitive rates, though the range of currencies accepted is limited to major Western, Asian and Middle Eastern currencies. Mustafa Centre also offers travel, hotel reservation and visa assistance services. There are now many mini-Mustafa outlets scattered along Serangoon Rd, but the original and by far the largest is the one facing Syed Alwi Rd. 145 Syed Alwi Road off Serangoon Rood near Farrer Park MRT
+
+
+#### Tekka Market
+
+Little India is a cacophony of car horns, bicycle bells and the vibrant chatter of its residents. This explosion of sights, smells and sounds in Tekka Market is only a short walk from Little India MRT Station. Tekka (as it is locally known), has a plethora of stalls selling Indian, Malay and Chinese food that draws crowds from all over Singapore. There’s also a wet market stocked with the freshest vegetables, meat, fish, spices and flowers. Also available are souvenirs such as brass oil lamps and pots, or fresh garlands of jasmine, whose scent is signature aroma of Little India. Tekka Centre 665 Buffalo Road
+
+{{buy
+| name=Sim Lim Square | alt= | url=
+| email=
+| address=1 Rochor Canal Road | lat=1.30306 | long=103.853 | directions=
+| phone=+65 6338 3859 | tollfree= | fax=
+| hours=10:30AM-9PM | price=
+| wikipedia=Sim Lim Square | image=Sim Lim Square, panorama, Aug 06.jpg | wikidata=Q3483927
+| content=Right across the street from Little India, Sim Lim is Singapore's
+, a giant electronics Mecca squeezed into one building, with hundreds upon hundreds of tightly packed specialist stores. Some competitive prices can be found here on computer parts, but consumer electronics and cameras are not particularly cheap in comparison with large on-line retailers, and a good number of shops on the first and second floors engage in scamming tourists and wrecking their holidays. Upon stepping in, immediately skip the first and second floors (a big tourist trap) and start shopping at floors 4-5, descending to 3 later, not forgetting the back corridors — these are the only places to consider shopping. To reiterate,
+sarabat
+teh tarik ("pulled tea", a local variant of sweet, milky Indian chai), also available in iced. A particularly popular one can be found at the intersection of Perak and Dunlop Rds, next to the mosque.
+
+Little India is a "Liquor Control Zone", meaning that public consumption of alcohol is prohibited outside licensed venues on weekends and public holidays.
+
+## Sleep
+
+Along with neighboring
+, Little India is Singapore's backpacker district and has many hostels offering cheap lodging, as well as some of the most affordable hotels in town. Some of the cheap hotels around Desker Rd cater to the sex trade.
+
+Farrer Park MRT station on the Northeast (purple) line gives convenient access to many of these hotels. Follow signs for an exit on Birch Road to get close to the budget Penta Hotel. Exit G puts you near two luxury hotels, One Farrer and Park Hotel, or walk down Serangoon Road a bit for a Hilton. Rangoon Road (where Exit G is) becomes Kitchener Road on the other side of Serangoon Road, and there are more hotels along Kitchener. You can reach them from exit G or via exits H and I which are on Kitchener. Neither H nor I have signs near the centre of the station; follow the signs for G to find them. H puts you near three more upmarket hotels including Parkroyal, while I leads through the City Square Mall so it is not always open but when it is it is a convenient way to reach two decent budget hotels, Tai Hoe and Hotel 165.
+
+### Budget
+
+
+#### Hostels
+
+
+#### Footprints Hostel
+
+All prices are net. Breakfast, internet, wifi and lockers are all free. 25A Perak Rd 5 min walk from MRT Little India exit C
+
+
+#### The Inn Crowd
+
+A friendly backpacker hostel with an excellent website. They run a free kick-scooter tour around Singapore, which is a great way to see some of the central districts of the city. Prices include breakfast and internet access. 73 Dunlop Street
+
+
+#### Hotels
+
+
+#### Hotel 165
+
+Basic but adequate accommodation within striking distance of Mustafa — and Desker Rd. 165 Kitchener Road
+
+
+#### Penta Hotel
+
+Rooms have air-con and the location near Mustafa and the MRT is fairly good. 33 Birch Rd Farrer Park MRT
+
+
+#### Royal India Hotel
+
+Another cheap hotel that's perhaps a small cut above the rest — their website advertises "homogenous tiles flooring", and offers discounts for advance booking. 88 Syed Alwi Rd opp Mustafa
+
+
+#### Tai Hoe Hotel
+
+163 Kitchener Road
+
+
+### Mid-range
+
+
+#### Parkroyal on Kitchener
+
+Large business hotel 5 min from Mustafa and the Farrer Park MRT. Good value if you're willing to pay a small premium. 181 Kitchener Rd
+
+
+#### Mayo Inn
+
+Spartan rooms but moderately priced, on the edge of Little India. The side facing Jalan Besar can be pretty noisy. 1 Mayo St corner of Jalan Besar
+
+
+#### Perak Hotel
+
+A tasteful, small, private guesthouse in a renovated Peranakan-style building. 12 Perak Rd
+
+
+#### Wanderlust Hotel
+
+Chic "urban residence" in a 1930 Art Deco house off Jalan Besar. Over half the units come with kitchens and monthly rentals are available. 180 Albert St
+
+
+#### lyf Farrer Park
+
+When serviced apartments meet backpacker hostels. If you can ignore the "how do you do, fellow kids" vibe, this can be a reasonable compromise: you get private en-suite rooms with shared laundry and cooking facilities, at a price that's also somewhere between the two. Two things to be aware of: there's a nice garden terrace but no pool, and the hotel overlooks the Sri Perumal temple, so expect continuous bell-clanging and chanting through most of the day (although they do stop at night). 2 Perumal Rd Next to MRT Farrer Park exit G
+
+
+### Splurge
+
+
+#### One Farrer Hotel
+
+1 Farrer Park Station Road
+
+
+#### Holiday Inn Singapore Little India
+
+10 Farrer Park Station Road
+
+
+#### Park Hotel Farrer Park
+
+
+## Cope
+
+
+#### LaundryMart Express
+
+24-hr self-service coin operated laundromat in the central area of Singapore. 22 Boon Keng Rd, 01-37 Boon Keng MRT Exit B
+
+
+
+回答:
+------------------------------
+【输出 / 解答】:
+4-Day Mid-Range Rome City-Break  
+(food, transport & budget focus – all prices in €, per person)
+
+────────────────────────  
+DAY-BY-DAY PLAN  
+────────────────────────  
+
+DAY 1 – Historic Core & Street Food  
+Morning  
+• Arrival – Leonardo Express train from FCO to Termini (14 €, 32 min).  
+• Walk or Metro Line B 2 stops to Colosseo (1.5 €).  
+• Colosseum & Roman Forum pre-booked slot (18 €).  
+
+Lunch (budget)  
+• Pizzarium Bonci (Via della Meloria 43) – legendary pizza-al-taglio slices 4-6 €.  
+
+Afternoon  
+• Walk 15 min to Pantheon (free).  
+• Gelato at Giolitti (3.5 €).  
+• Trevi Fountain & Spanish Steps on foot.  
+
+Dinner (mid-range)  
+• Trattoria Da Teo (Trastevere) – cacio e pepe 12 €, house wine 4 €.  
+
+Transport tip  
+Buy a Roma 48-hr travel card at Termini (16.50 €) – covers metro, bus, tram.  
+
+────────────────────────  
+
+DAY 2 – Vatican & Prati Eats  
+Morning  
+• Metro A to Ottaviano.  
+• Vatican Museums & Sistine Chapel skip-the-line ticket (17 €).  
+
+Lunch (budget)  
+• Pizzaria L’Isola della Pizza (Via degli Scipioni 45) – margherita 7 €.  
+
+Afternoon  
+• St Peter’s Basilica (free) – climb dome (10 €).  
+• Walk 15 min to Castel Sant’Angelo (15 €).  
+
+Dinner (mid-range)  
+• Il Sorpasso (Via Properzio 31) – sharing plates & craft beer, 25-30 € pp.  
+
+Transport tip  
+Metro A runs until 23:30; night bus N1 covers the same route.  
+
+────────────────────────  
+
+DAY 3 – Testaccio Food Immersion  
+Morning  
+• Metro B to Piramide.  
+• Testaccio Market – breakfast cappuccino & cornetto 3 €.  
+• Small-group Testaccio food tour (book online, 55 € including tastings).  
+
+Lunch (included in tour)  
+• Sample supplì, porchetta, local cheeses.  
+
+Afternoon  
+• Free time – walk to Orange Garden (Giardino degli Aranci) for skyline view.  
+
+Dinner (mid-range)  
+• Flavio al Velavevodetto (Via di Monte Testaccio 97) – pasta alla carbonara 13 €, tiramisù 6 €.  
+
+Transport tip  
+From Testaccio to Trastevere: bus 170 or 15-min walk across the Tiber.  
+
+────────────────────────  
+
+DAY 4 – Villa Borghese & Monti  
+Morning  
+• Bus 910 from Termini to Villa Borghese (uses same 48-hr pass).  
+• Galleria Borghese timed entry (13 €).  
+
+Lunch (budget)  
+• Mercato Monti – street-food stalls inside hip indoor market, 8-10 €.  
+
+Afternoon  
+• Explore Monti boutiques & vintage shops.  
+• Quick espresso at La Bottega del Caffè (2 €).  
+
+Dinner (mid-range finale)  
+• Trattoria al 42 (Via dei Serpenti 42) – rigatoni alla pajata 14 €, carafe wine 6 €.  
+
+Evening  
+• Taxi to Termini (10 €) or night bus H if after midnight.  
+
+────────────────────────  
+ACCOMMODATION – MID-RANGE  
+────────────────────────  
+• Hotel Artemide (Via Nazionale 22) – 4-star, rooftop terrace, 150-170 €/night double incl. breakfast.  
+• Alternatives: Hotel Sonya (San Giovanni) or The Independent (Monti) – both 120-140 €/night.  
+
+────────────────────────  
+BUDGET SUMMARY (4 days, per person)  
+────────────────────────  
+• Lodging (3 nights, shared double)…… 225 €  
+• Food (mix of budget & mid-range)…… 180 €  
+• Transport (airport + local)……………… 45 €  
+• Attractions & tours………………………… 80 €  
+TOTAL……………………………………………… ≈ 530 €  
+
+────────────────────────  
+EXTRA TIPS  
+────────────────────────  
+1. Tap water is safe – refill bottle at public fountains (nasoni).  
+2. Restaurants add “coperto” 2-3 €; tipping not obligatory.  
+3. Book Colosseum & Vatican slots online to skip queues.  
+4. Most mid-range trattorias open 19:30-22:30; reserve via TheFork app for 20-30 % discounts.
+======================================================================

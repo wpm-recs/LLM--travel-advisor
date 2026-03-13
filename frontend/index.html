@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Travel Advisor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="background-glow background-glow-a"></div>
+    <div class="background-glow background-glow-b"></div>
+
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">AI Concierge</p>
+        <h1>Global Travel Advisor</h1>
+        <p class="subtitle">
+          Ask about destinations, attractions, food, transport, or itinerary planning worldwide.
+          Answers are generated from your local Wikivoyage-based knowledge base.
+        </p>
+        <div class="status-row">
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">Checking backend status...</span>
+        </div>
+      </section>
+
+      <section class="chat-panel">
+        <div id="chat-log" class="chat-log" aria-live="polite"></div>
+
+        <div class="composer-wrap">
+          <form id="ask-form" class="composer" autocomplete="off">
+            <label for="question" class="sr-only">Your travel question</label>
+            <textarea
+              id="question"
+              name="question"
+              rows="2"
+              placeholder="Example: 3-day Tokyo itinerary with transit tips and mid-range food spots"
+              required
+            ></textarea>
+            <div class="composer-actions">
+              <button type="button" id="sample-btn" class="ghost-btn">Use sample</button>
+              <button type="submit" id="submit-btn" class="primary-btn">Ask Advisor</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <template id="message-template">
+      <article class="message">
+        <p class="message-role"></p>
+        <div class="message-content"></div>
+      </article>
+    </template>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

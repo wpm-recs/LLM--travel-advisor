@@ -1,5 +1,5 @@
 """
-RAG系统主程序 - 新加坡旅游指南专用
+RAG系统主程序 - 全球旅行问答
 """
 
 import os
@@ -23,6 +23,8 @@ from rag_modules import (
 
 # 加载环境变量
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 class TravelRAGSystem:
@@ -166,7 +168,7 @@ class TravelRAGSystem:
 
         # 4. 检查是否找到相关内容
         if not relevant_chunks:
-            return "抱歉，没有找到相关的旅游指南信息。您可以尝试换个地名或项目试试，比如'乌节路有什么好吃的'。"
+            return "抱歉，没有找到相关的旅游指南信息。您可以尝试换个城市或项目试试，比如'东京浅草附近有什么平价美食'。"
 
         # 5. 根据路由类型选择回答方式
         if route_type == 'list':
@@ -223,7 +225,7 @@ class TravelRAGSystem:
         print("=" * 65)
         print(" 旅游指南助手")
         print("=" * 65)
-        print("   (例如：'乌节路有什么平价餐厅？', '去鱼尾狮公园怎么坐车？')")
+        print("   (例如：'罗马有哪些适合步行的景点？', '巴黎地铁通票怎么买？')")
 
         # 初始化系统
         self.initialize_system()
@@ -257,7 +259,7 @@ class TravelRAGSystem:
 def main():
     """主函数"""
     try:
-        # 创建新加坡旅游RAG系统
+        # 创建全球旅行RAG系统
         rag_system = TravelRAGSystem()
 
         # 运行交互式问答
