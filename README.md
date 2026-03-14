@@ -111,3 +111,7 @@ python main.py
 	- Ensure packages from `requirements.txt` are installed, especially `requests`, `tqdm`, `mwxml`, and `mwparserfromhell`.
 - Slow startup:
 	- Expected on first run while downloading Wikivoyage data and building the vector index.
+
+## Screenshot
+
+![Global Travel Advisor Screenshot](docs/screenshot.png)

@@ -68,15 +68,16 @@ class GenerationIntegrationModule:
         """智能查询重写"""
         prompt = PromptTemplate(
             template="""
-你是一个智能查询分析助手，专门处理全球旅行相关搜索。请分析用户的查询，判断是否需要重写以提高检索效果。
+You are an intelligent query analysis assistant for global travel search.
+Analyze the user query and decide whether rewriting is needed to improve retrieval quality.
 
-原始查询: {query}
+Original query: {query}
 
-分析规则：
-1. **具体明确的查询**（直接返回原查询）
-2. **模糊不清或过于口语化的查询**（需要重写）
+Rules:
+1. If the query is already specific and clear, return it unchanged.
+2. If the query is vague, ambiguous, or overly colloquial, rewrite it into a clearer travel-search query.
 
-请输出最终查询（如果不需要重写就返回原查询）:""",
+Output only the final query text (unchanged if no rewrite is needed):""",
             input_variables=["query"]
         )
 
@@ -100,15 +101,15 @@ class GenerationIntegrationModule:
     def query_router(self, query: str) -> str:
         """查询路由"""
         prompt = ChatPromptTemplate.from_template("""
-根据用户的旅游问题，将其分类为以下两种类型之一：
-1. 'detail' - 具体的路线、攻略
-2. 'general' - 其他一般性问题
+Classify the user's travel question into exactly one of the following types:
+1. 'detail' - specific itinerary, route, or actionable travel plan
+2. 'general' - all other general travel questions
 
-请只返回分类结果：detail 或 general
+Return only one label: detail or general
 
-用户问题: {query}
+User question: {query}
 
-分类结果:""")
+Classification:""")
 
         # 显式生成完整的 Prompt 文本用于日志
         full_prompt_text = prompt.format(query=query)
@@ -137,20 +138,21 @@ class GenerationIntegrationModule:
 
         context_preview = self._build_relevance_preview(retrieved_docs)
         prompt = ChatPromptTemplate.from_template("""
-你是旅行问答系统的检索质量评估器。请判断给定的检索页面是否与用户问题足够相关，能够作为回答依据。
+You are a retrieval-quality evaluator for a travel Q&A system.
+Decide whether the retrieved pages are relevant enough to support an answer.
 
-判断标准：
-1. 如果页面直接回答问题，或明显属于同一地点/主题，返回 relevant。
-2. 如果页面只有弱相关、主题偏移、地点错误，或不足以支撑回答，返回 irrelevant。
-3. 不要因为有一点点关键词重合就判定为 relevant。
+Criteria:
+1. Return relevant if pages directly answer the question or clearly match the same place/topic.
+2. Return irrelevant if pages are only weakly related, off-topic, mismatched in location, or insufficient for grounding.
+3. Do not mark relevant based on minor keyword overlap alone.
 
-用户问题:
+User question:
 {question}
 
-检索页面摘要:
+Retrieved page summaries:
 {context_preview}
 
-请只返回一个单词：relevant 或 irrelevant
+Return exactly one word: relevant or irrelevant
 """)
 
         full_prompt_text = prompt.format(question=query, context_preview=context_preview)
@@ -169,17 +171,19 @@ class GenerationIntegrationModule:
         """Generate an answer using the model's own knowledge when retrieval is insufficient."""
         style_instruction = self._build_style_instruction(route_type)
         prompt = ChatPromptTemplate.from_template("""
-你是一位专业旅行顾问。检索到的 Wikivoyage 页面不足以支持回答，因此你需要基于已有知识回答用户。
+You are a professional travel advisor.
+The retrieved Wikivoyage pages are not sufficient to ground the answer, so respond using your own general knowledge.
 
-要求：
-1. 回答开头必须明确写出：以下回答基于我的已有知识，而非检索到的 Wikivoyage 页面。
-2. 不要假装引用了页面，也不要编造“根据页面所示”之类表述。
-3. 如果某些信息你无法确定，要明确说明不确定。
+Requirements:
+1. At the beginning, explicitly state that this answer is based on your own knowledge rather than retrieved Wikivoyage pages, phrased in the same language as the user question.
+2. Do not pretend to cite retrieved pages or fabricate source-based claims.
+3. If any detail is uncertain, clearly say so.
 4. {style_instruction}
+5. Respond in the same language as the user question.
 
-用户问题: {question}
+User question: {question}
 
-回答:
+Answer:
 """)
 
         full_prompt_text = prompt.format(question=query, style_instruction=style_instruction)
@@ -202,16 +206,20 @@ class GenerationIntegrationModule:
         context = self._build_context(context_docs)
 
         prompt = ChatPromptTemplate.from_template("""
-你是一位专业导游。请根据以下指南信息回答用户的问题。
+You are a professional tour guide.
+Answer the user's question based on the travel-guide information below.
 
-用户问题: {question}
+Requirements:
+1. Respond in the same language as the user question.
+2. Keep the answer accurate and friendly.
+3. Ground the answer strictly in the provided guide information, without using outside knowledge.
 
-相关指南信息:
+User question: {question}
+
+Relevant guide information:
 {context}
 
-请提供准确、友好的回答，完全基于相关指南给出的信息，不要使用已有知识。
-
-回答:""")
+Answer:""")
 
         # 显式生成完整的 Prompt 文本用于日志
         full_prompt_text = prompt.format(question=query, context=context)
@@ -236,14 +244,20 @@ class GenerationIntegrationModule:
         context = self._build_context(context_docs)
 
         prompt = ChatPromptTemplate.from_template("""
-你是一位专业的旅行规划师。请完全根据指南信息，为用户提供结构化的旅行攻略，不要使用已有知识。
+You are a professional travel planner.
+Using only the guide information below, provide a structured and actionable travel plan.
 
-用户问题: {question}
+Requirements:
+1. Respond in the same language as the user question.
+2. Keep the plan clearly structured and directly actionable.
+3. Do not use outside knowledge beyond the provided guide information.
 
-相关指南信息:
+User question: {question}
+
+Relevant guide information:
 {context}
 
-回答:""")
+Answer:""")
 
         # 显式生成完整的 Prompt 文本用于日志
         full_prompt_text = prompt.format(question=query, context=context)
@@ -313,5 +327,5 @@ class GenerationIntegrationModule:
     def _build_style_instruction(self, route_type: str) -> str:
         """Return style guidance based on the routed query type."""
         if route_type == "detail":
-            return "请给出结构化、步骤化的旅行建议或行程安排。"
-        return "请给出准确、直接、实用的旅行建议。"
+            return "Provide a structured, step-by-step travel plan with practical execution details."
+        return "Provide accurate, direct, and practical travel advice."
