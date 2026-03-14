@@ -93,17 +93,21 @@ python main.py
 
 ## First-Run Notes
 
-- First run is slower because embeddings/index are built.
+- On first run, if `./wikivoyage_global` is missing, the app automatically downloads the latest English Wikivoyage dump and extracts the global markdown dataset.
+- This first startup can take significantly longer because it may need to download data, extract markdown files, build embeddings, and create the FAISS index.
 - Index and chunks are cached locally for later runs:
 	- `saved_chunks_global.pkl`
 	- `vector_index_global/`
+	- `wikivoyage_global/`
 
 ## Troubleshooting
 
 - `数据路径不存在` / data path errors:
-	- Ensure `wikivoyage_global/` exists in repo root, or set `TRAVEL_DATA_PATH`.
-	- If global data is absent, the system automatically falls back to `wikivoyage_sg/` when available.
+	- If `wikivoyage_global/` is missing, the app now attempts to download and generate it automatically.
+	- If you use a custom dataset, set `TRAVEL_DATA_PATH` to that directory.
 - API key errors:
 	- Ensure `MOONSHOT_API_KEY` is exported in the same shell.
+- Download/extraction dependency errors:
+	- Ensure packages from `requirements.txt` are installed, especially `requests`, `tqdm`, `mwxml`, and `mwparserfromhell`.
 - Slow startup:
-	- Expected on first run while building vector index.
+	- Expected on first run while downloading Wikivoyage data and building the vector index.

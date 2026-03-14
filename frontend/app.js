@@ -10,7 +10,7 @@ const messageTemplate = document.getElementById("message-template");
 const sampleQuestion =
   "Plan a 4-day Europe city break for Rome with food spots, transport tips, and a mid-range budget.";
 
-function addMessage(role, text) {
+function addMessage(role, text, sources = []) {
   const node = messageTemplate.content.firstElementChild.cloneNode(true);
   const roleEl = node.querySelector(".message-role");
   const contentEl = node.querySelector(".message-content");
@@ -18,6 +18,32 @@ function addMessage(role, text) {
   node.classList.add(role);
   roleEl.textContent = role === "user" ? "Traveler" : "Advisor";
   contentEl.textContent = text;
+
+  if (role === "assistant" && Array.isArray(sources) && sources.length > 0) {
+    const sourcesWrap = document.createElement("div");
+    sourcesWrap.className = "message-sources";
+
+    const label = document.createElement("p");
+    label.className = "sources-label";
+    label.textContent = "Retrieved Pages";
+    sourcesWrap.appendChild(label);
+
+    const list = document.createElement("div");
+    list.className = "sources-list";
+
+    sources.forEach((source) => {
+      const link = document.createElement("a");
+      link.className = "source-link";
+      link.href = source.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = source.title;
+      list.appendChild(link);
+    });
+
+    sourcesWrap.appendChild(list);
+    node.appendChild(sourcesWrap);
+  }
 
   chatLog.appendChild(node);
   chatLog.scrollTop = chatLog.scrollHeight;
@@ -58,7 +84,10 @@ async function askQuestion(question) {
     throw new Error(data.error || "Request failed");
   }
 
-  return data.answer;
+  return {
+    answer: data.answer,
+    sources: Array.isArray(data.sources) ? data.sources : [],
+  };
 }
 
 askForm.addEventListener("submit", async (event) => {
@@ -72,8 +101,8 @@ askForm.addEventListener("submit", async (event) => {
   submitBtn.textContent = "Thinking...";
 
   try {
-    const answer = await askQuestion(question);
-    addMessage("assistant", answer || "No answer generated.");
+    const result = await askQuestion(question);
+    addMessage("assistant", result.answer || "No answer generated.", result.sources || []);
   } catch (error) {
     addMessage("assistant", `Error: ${error.message}`);
   } finally {

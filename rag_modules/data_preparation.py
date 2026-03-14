@@ -1,7 +1,9 @@
 import uuid
 import json
+import re
 from pathlib import Path
 from typing import List, Dict
+from urllib.parse import quote
 # Requires langchain and langchain-text-splitters
 from langchain_core.documents import Document
 from langchain_text_splitters import MarkdownHeaderTextSplitter
@@ -76,12 +78,62 @@ class DataPreparationModule:
         # Extract place name (filename without extension)
         doc.metadata['place_name'] = file_path.stem
 
+        wiki_title = self._extract_wiki_title(doc)
+        if wiki_title:
+            doc.metadata['wiki_title'] = wiki_title
+            doc.metadata['wiki_url'] = self._build_wiki_url(wiki_title)
+
         # Simple keyword tagging
         content_lower = doc.page_content.lower()
         tags = []
         if "visa" in content_lower: tags.append("policy")
         if "currency" in content_lower: tags.append("finance")
         doc.metadata['tags'] = tags
+
+    def _extract_wiki_title(self, doc: Document) -> str:
+        """Extract a canonical Wikivoyage page title from markdown content or metadata."""
+        title_match = re.search(r"^#\s+(.+)$", doc.page_content, flags=re.MULTILINE)
+        if title_match:
+            return title_match.group(1).strip()
+
+        meta_title = str(doc.metadata.get('Title', '')).strip()
+        if meta_title:
+            return meta_title
+
+        relative_path = str(doc.metadata.get('relative_path', '')).strip()
+        if relative_path:
+            return Path(relative_path).with_suffix('').as_posix()
+
+        place_name = str(doc.metadata.get('place_name', '')).strip()
+        return place_name
+
+    def _build_wiki_url(self, wiki_title: str) -> str:
+        """Build Wikivoyage canonical URL for a page title."""
+        normalized = wiki_title.replace(' ', '_')
+        encoded = quote(normalized, safe="()/,:+-_")
+        return f"https://en.wikivoyage.org/wiki/{encoded}"
+
+    def hydrate_chunk_metadata(self, chunks: List[Document]) -> List[Document]:
+        """Backfill metadata for cached chunks produced by older pipelines."""
+        for chunk in chunks:
+            meta = chunk.metadata
+
+            if not meta.get('place_name') and meta.get('relative_path'):
+                meta['place_name'] = Path(str(meta['relative_path'])).stem
+
+            wiki_title = str(meta.get('wiki_title', '')).strip()
+            if not wiki_title:
+                wiki_title = str(meta.get('Title', '')).strip()
+
+            if not wiki_title and meta.get('relative_path'):
+                wiki_title = Path(str(meta['relative_path'])).with_suffix('').as_posix()
+
+            if wiki_title:
+                meta['wiki_title'] = wiki_title
+                if not meta.get('wiki_url'):
+                    meta['wiki_url'] = self._build_wiki_url(wiki_title)
+
+        return chunks
 
     def chunk_documents(self) -> List[Document]:
         """Structured chunking based on Markdown headers."""

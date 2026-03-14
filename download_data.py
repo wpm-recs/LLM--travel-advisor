@@ -7,6 +7,10 @@ import re
 from tqdm import tqdm
 
 
+DEFAULT_DUMP_FILE = "enwikivoyage-latest-pages-articles.xml.bz2"
+DEFAULT_OUTPUT_DIR = "./wikivoyage_global"
+
+
 class WikiDumpProcessor:
     def __init__(self, dump_file, output_dir="./wikivoyage_data", root_filter=None):
         """
@@ -260,9 +264,26 @@ class WikiDumpProcessor:
             traceback.print_exc()
 
 
+def ensure_global_wikivoyage_data(output_dir=DEFAULT_OUTPUT_DIR, dump_file=DEFAULT_DUMP_FILE):
+    """Download and extract the global Wikivoyage dataset if the target directory is missing or empty."""
+    if os.path.isdir(output_dir):
+        for _, _, files in os.walk(output_dir):
+            if any(file_name.endswith('.md') for file_name in files):
+                print(f"✅ Found existing Wikivoyage data in: {output_dir}")
+                return output_dir
+
+    print(f"📥 Global Wikivoyage data not found at {output_dir}, starting automatic download...")
+    processor = WikiDumpProcessor(
+        dump_file=dump_file,
+        output_dir=output_dir,
+    )
+    processor.process()
+    return output_dir
+
+
 if __name__ == "__main__":
     # Configuration
-    DUMP_FILE = "enwikivoyage-latest-pages-articles.xml.bz2"
+    DUMP_FILE = DEFAULT_DUMP_FILE
 
     # Example 1: Extract "Singapore" data
     # This will now correctly structure "Singapore/Sentosa" into folders
@@ -273,9 +294,4 @@ if __name__ == "__main__":
     # )
 
     # Example 2: Extract "China" data (Uncomment to use)
-    processor = WikiDumpProcessor(
-        dump_file=DUMP_FILE,
-        output_dir="./wikivoyage_global"
-    )
-
-    processor.process()
+    ensure_global_wikivoyage_data(output_dir=DEFAULT_OUTPUT_DIR, dump_file=DUMP_FILE)

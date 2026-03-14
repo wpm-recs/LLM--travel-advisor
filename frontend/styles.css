@@ -166,6 +166,44 @@ h1 {
   line-height: 1.5;
 }
 
+.message-sources {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(31, 42, 31, 0.18);
+}
+
+.sources-label {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.sources-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid rgba(15, 118, 110, 0.28);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.88rem;
+  color: var(--accent-dark);
+  background: rgba(213, 239, 228, 0.6);
+}
+
+.source-link:hover {
+  background: rgba(213, 239, 228, 0.95);
+  border-color: rgba(15, 118, 110, 0.5);
+}
+
 .composer-wrap {
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid var(--line);

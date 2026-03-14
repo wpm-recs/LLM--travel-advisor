@@ -131,6 +131,73 @@ class GenerationIntegrationModule:
         else:
             return 'general'
 
+    def assess_context_relevance(self, query: str, retrieved_docs: List[Document]) -> bool:
+        """Assess whether retrieved pages are relevant enough to be cited in the final answer."""
+        if not retrieved_docs:
+            return False
+
+        context_preview = self._build_relevance_preview(retrieved_docs)
+        prompt = ChatPromptTemplate.from_template("""
+你是旅行问答系统的检索质量评估器。请判断给定的检索页面是否与用户问题足够相关，能够作为回答依据。
+
+判断标准：
+1. 如果页面直接回答问题，或明显属于同一地点/主题，返回 relevant。
+2. 如果页面只有弱相关、主题偏移、地点错误，或不足以支撑回答，返回 irrelevant。
+3. 不要因为有一点点关键词重合就判定为 relevant。
+
+用户问题:
+{question}
+
+检索页面摘要:
+{context_preview}
+
+请只返回一个单词：relevant 或 irrelevant
+""")
+
+        full_prompt_text = prompt.format(question=query, context_preview=context_preview)
+        chain = (
+                {"question": RunnablePassthrough(), "context_preview": lambda _: context_preview}
+                | prompt
+                | self.llm
+                | StrOutputParser()
+        )
+
+        result = chain.invoke(query).strip().lower()
+        self._log_llm_interaction("检索相关性评估 (assess_context_relevance)", full_prompt_text, result)
+        return result == "relevant"
+
+    def generate_general_knowledge_answer(self, query: str, route_type: str = "general"):
+        """Generate an answer using the model's own knowledge when retrieval is insufficient."""
+        style_instruction = self._build_style_instruction(route_type)
+        prompt = ChatPromptTemplate.from_template("""
+你是一位专业旅行顾问。检索到的 Wikivoyage 页面不足以支持回答，因此你需要基于已有知识回答用户。
+
+要求：
+1. 回答开头必须明确写出：以下回答基于我的已有知识，而非检索到的 Wikivoyage 页面。
+2. 不要假装引用了页面，也不要编造“根据页面所示”之类表述。
+3. 如果某些信息你无法确定，要明确说明不确定。
+4. {style_instruction}
+
+用户问题: {question}
+
+回答:
+""")
+
+        full_prompt_text = prompt.format(question=query, style_instruction=style_instruction)
+        chain = (
+                {"question": RunnablePassthrough(), "style_instruction": lambda _: style_instruction}
+                | prompt
+                | self.llm
+                | StrOutputParser()
+        )
+
+        full_response = ""
+        for chunk in chain.stream(query):
+            full_response += chunk
+            yield chunk
+
+        self._log_llm_interaction("已有知识回答 (generate_general_knowledge_answer)", full_prompt_text, full_response)
+
     def generate_list_answer(self, query: str, context_docs: List[Document]) -> str:
         """生成列表式回答 (纯逻辑处理，未调用LLM)"""
         # ... (此方法未调用 LLM，保持不变)
@@ -245,3 +312,28 @@ class GenerationIntegrationModule:
             context_parts.append(doc_text)
             current_length += len(doc_text)
         return "\n" + "=" * 50 + "\n".join(context_parts)
+
+    def _build_relevance_preview(self, docs: List[Document], max_docs: int = 5, max_chars: int = 1800) -> str:
+        """Build a compact preview of retrieved pages for relevance assessment."""
+        preview_parts = []
+        current_length = 0
+
+        for index, doc in enumerate(docs[:max_docs], 1):
+            meta = doc.metadata
+            title = meta.get('wiki_title') or meta.get('Title') or meta.get('relative_path') or meta.get('place_name') or 'Unknown'
+            snippet = " ".join(doc.page_content.split())[:260]
+            block = f"[{index}] 标题: {title}\n摘要: {snippet}\n"
+            if current_length + len(block) > max_chars:
+                break
+            preview_parts.append(block)
+            current_length += len(block)
+
+        return "\n".join(preview_parts) if preview_parts else "无可用页面摘要"
+
+    def _build_style_instruction(self, route_type: str) -> str:
+        """Return style guidance based on the routed query type."""
+        if route_type == "list":
+            return "优先给出清晰的推荐列表，每项可附一句简短理由。"
+        if route_type == "detail":
+            return "请给出结构化、步骤化的旅行建议或行程安排。"
+        return "请给出准确、直接、实用的旅行建议。"

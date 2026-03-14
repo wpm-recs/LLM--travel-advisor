@@ -117,9 +117,22 @@ class TravelAdvisorHandler(BaseHTTPRequestHandler):
 
         try:
             system = initialize_rag_system()
-            result = system.ask_question(question, stream=True)
-            answer = _consume_answer(result)
-            self._send_json({"answer": answer, "question": question})
+            result = system.ask_question(question, stream=False, return_sources=True)
+
+            if isinstance(result, dict):
+                answer = str(result.get("answer", ""))
+                sources = result.get("sources", [])
+            else:
+                answer = _consume_answer(result)
+                sources = []
+
+            self._send_json(
+                {
+                    "answer": answer,
+                    "question": question,
+                    "sources": sources,
+                }
+            )
         except Exception as exc:  # pragma: no cover - defensive runtime boundary
             logger.exception("Failed to answer question")
             self._send_json(

@@ -22,7 +22,7 @@ class RAGConfig:
     llm_model: str = "kimi-k2-0711-preview"
 
     # 检索配置
-    top_k: int = 3
+    top_k: int = 6
 
     # 生成配置
     temperature: float = 0.1
@@ -33,15 +33,8 @@ class RAGConfig:
         env_data_path = os.getenv("TRAVEL_DATA_PATH", "").strip()
         if env_data_path:
             self.data_path = env_data_path
-            return
-
-        # Prefer global dataset by default; fall back to SG to keep existing repo usable.
-        global_path = Path("./wikivoyage_global")
-        sg_path = Path("./wikivoyage_sg")
-        if global_path.exists():
-            self.data_path = str(global_path)
-        elif sg_path.exists():
-            self.data_path = str(sg_path)
+        else:
+            self.data_path = str(Path("./wikivoyage_global"))
 
     @classmethod
     def from_dict(cls, config_dict: Dict[str, Any]) -> 'RAGConfig':

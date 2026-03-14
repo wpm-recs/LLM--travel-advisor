@@ -6,14 +6,16 @@ import os
 import sys
 import logging
 from pathlib import Path
-from typing import List
+from typing import List, Dict, Any
 import pickle
+from urllib.parse import quote
 
 # 添加模块路径
 sys.path.append(str(Path(__file__).parent))
 
 from dotenv import load_dotenv
 from config import DEFAULT_CONFIG, RAGConfig
+from download_data import ensure_global_wikivoyage_data
 from rag_modules import (
     DataPreparationModule,
     IndexConstructionModule,
@@ -43,7 +45,14 @@ class TravelRAGSystem:
         self.generation_module = None
 
         # 检查数据路径
-        if not Path(self.config.data_path).exists():
+        data_path = Path(self.config.data_path)
+        if not data_path.exists():
+            if data_path.name == "wikivoyage_global":
+                ensure_global_wikivoyage_data(output_dir=str(data_path))
+            else:
+                raise FileNotFoundError(f"数据路径不存在: {self.config.data_path}")
+
+        if not data_path.exists():
             raise FileNotFoundError(f"数据路径不存在: {self.config.data_path}")
         # 检查API密钥
         if not os.getenv("MOONSHOT_API_KEY"):
@@ -78,34 +87,39 @@ class TravelRAGSystem:
         """构建知识库"""
         print("\n正在构建旅游知识库...")
 
+        # Always load parent documents to keep parent-document retrieval available.
+        print("加载旅游指南文档...")
+        self.data_module.load_documents()
+
         # 1. 尝试加载已保存的索引
         vectorstore = self.index_module.load_index()
         chunks_file = self.config.chunks_path
-        if vectorstore is not None:
+        if vectorstore is not None and Path(chunks_file).exists():
             print("✅ 成功加载已保存的向量索引！")
-            print("加载旅游指南文档...")
-            print("📦 加载已保存的文本分块数据...")
             print("📦 加载已保存的文本分块数据...")
             with open(chunks_file, 'rb') as f:
                 chunks = pickle.load(f)
         else:
-            # 2. 加载文档
-            print("加载旅游指南文档...")
-            self.data_module.load_documents()
+            if vectorstore is not None:
+                print("⚠️ 检测到向量索引，但未找到 chunks 缓存，将重新生成 chunks。")
 
-            # 3. 文本分块
+            # 2. 文本分块
             print("进行文本分块...")
             chunks = self.data_module.chunk_documents()
             print("💾 保存文本分块数据...")
             with open(chunks_file, 'wb') as f:
                 pickle.dump(chunks, f)
 
-            # 4. 构建向量索引
-            print("构建向量索引...")
-            vectorstore = self.index_module.build_vector_index(chunks)
-            # 5. 保存索引
-            print("保存向量索引...")
-            self.index_module.save_index()
+            if vectorstore is None:
+                # 3. 构建向量索引
+                print("构建向量索引...")
+                vectorstore = self.index_module.build_vector_index(chunks)
+                # 4. 保存索引
+                print("保存向量索引...")
+                self.index_module.save_index()
+
+        chunks = self.data_module.hydrate_chunk_metadata(chunks)
+        self.data_module.chunks = chunks
 
         # 6. 初始化检索优化模块
         print("初始化检索优化...")
@@ -118,7 +132,7 @@ class TravelRAGSystem:
         print(f"   文本块数: {stats.get('total_chunks', '未知')}")
         print("✅ 知识库构建完成！")
 
-    def ask_question(self, question: str, stream: bool = True):
+    def ask_question(self, question: str, stream: bool = True, return_sources: bool = False):
         """
         回答用户问题
 
@@ -166,9 +180,20 @@ class TravelRAGSystem:
         else:
             print(f"找到 {len(relevant_chunks)} 个相关攻略块")
 
-        # 4. 检查是否找到相关内容
-        if not relevant_chunks:
-            return "抱歉，没有找到相关的旅游指南信息。您可以尝试换个城市或项目试试，比如'东京浅草附近有什么平价美食'。"
+        # 4. 评估检索内容是否足够相关，决定是否展示引用
+        has_relevant_context = self.generation_module.assess_context_relevance(question, relevant_chunks)
+        if not relevant_chunks or not has_relevant_context:
+            print("ℹ️ 检索页面相关度不足，切换为已有知识作答模式。")
+            sources = []
+            result = self.generation_module.generate_general_knowledge_answer(question, route_type=route_type)
+
+            if return_sources:
+                answer_text = "".join(chunk for chunk in result)
+                return {"answer": answer_text, "sources": sources}
+
+            return result
+
+        sources = self._extract_sources(relevant_chunks)
 
         # 5. 根据路由类型选择回答方式
         if route_type == 'list':
@@ -176,21 +201,69 @@ class TravelRAGSystem:
             print("📋 生成打卡点列表...")
             #relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
             relevant_docs = relevant_chunks
-            return self.generation_module.generate_list_answer(question, relevant_docs)
+            result = self.generation_module.generate_list_answer(question, relevant_docs)
         else:
             # 详细查询：获取完整文档并生成详细攻略
             print("获取完整背景指南...")
             relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
+            if not relevant_docs:
+                # Cached chunks may come from a previous run with different parent UUIDs.
+                # Fall back to chunk context instead of returning empty context.
+                relevant_docs = relevant_chunks
 
             print("✍️ 生成专业旅游攻略...")
 
             # 根据路由类型自动选择回答模式
             if route_type == "detail":
                 # 详细查询使用分步攻略模式
-                return self.generation_module.generate_step_by_step(question, relevant_docs)
+                result = self.generation_module.generate_step_by_step(question, relevant_docs)
             else:
                 # 一般查询使用基础问答模式
-                return self.generation_module.generate_basic_answer(question, relevant_docs)
+                result = self.generation_module.generate_basic_answer(question, relevant_docs)
+
+        if return_sources:
+            if isinstance(result, str):
+                answer_text = result
+            else:
+                answer_text = "".join(chunk for chunk in result)
+            return {"answer": answer_text, "sources": sources}
+
+        return result
+
+    def _extract_sources(self, chunks: List[Any]) -> List[Dict[str, str]]:
+        """Extract unique source pages and canonical Wikivoyage links from retrieved chunks."""
+        sources: List[Dict[str, str]] = []
+        seen = set()
+
+        for chunk in chunks:
+            meta = getattr(chunk, "metadata", {}) or {}
+            file_name = str(meta.get("relative_path", "")).strip()
+            wiki_title = str(meta.get("wiki_title", "")).strip()
+            header_title = str(meta.get("Title", "")).strip()
+            place_name = str(meta.get("place_name", "")).strip()
+
+            # Strip .md extension so titles and fallback URLs are clean
+            file_stem = Path(file_name).stem if file_name else ""
+
+            title = (
+                file_stem
+                or wiki_title
+                or header_title
+                or place_name
+                or "Unknown Page"
+            )
+            url = meta.get("wiki_url")
+            if not url:
+                normalized = quote(str(title).replace(" ", "_"), safe="()/,:+-_")
+                url = f"https://en.wikivoyage.org/wiki/{normalized}"
+
+            key = (title, url)
+            if key in seen:
+                continue
+            seen.add(key)
+            sources.append({"title": str(title), "url": str(url)})
+
+        return sources
 
     def _extract_filters_from_query(self, query: str) -> dict:
         """
