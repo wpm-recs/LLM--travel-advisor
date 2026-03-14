@@ -151,12 +151,9 @@ class TravelRAGSystem:
         route_type = self.generation_module.query_router(question)
         print(f"🎯 查询类型: {route_type}")
 
-        # 2. 智能查询重写（根据路由类型）
-        if route_type == 'list':
-            rewritten_query = question
-        else:
-            print("🤖分析旅游需求...")
-            rewritten_query = self.generation_module.query_rewrite(question)
+        # 2. 智能查询重写
+        print("🤖分析旅游需求...")
+        rewritten_query = self.generation_module.query_rewrite(question)
 
         # 3. 检索相关子块（自动应用元数据过滤，如区域、类型）
         print("🔍检索相关旅游指南...")
@@ -195,31 +192,20 @@ class TravelRAGSystem:
 
         sources = self._extract_sources(relevant_chunks)
 
-        # 5. 根据路由类型选择回答方式
-        if route_type == 'list':
-            # 列表查询：直接返回推荐地点/餐厅列表
-            print("📋 生成打卡点列表...")
-            #relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
+        # 5. 获取完整文档并生成回答
+        print("获取完整背景指南...")
+        relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
+        if not relevant_docs:
+            # Cached chunks may come from a previous run with different parent UUIDs.
+            # Fall back to chunk context instead of returning empty context.
             relevant_docs = relevant_chunks
-            result = self.generation_module.generate_list_answer(question, relevant_docs)
+
+        print("✍️ 生成专业旅游攻略...")
+
+        if route_type == "detail":
+            result = self.generation_module.generate_step_by_step(question, relevant_docs)
         else:
-            # 详细查询：获取完整文档并生成详细攻略
-            print("获取完整背景指南...")
-            relevant_docs = self.data_module.get_parent_documents(relevant_chunks)
-            if not relevant_docs:
-                # Cached chunks may come from a previous run with different parent UUIDs.
-                # Fall back to chunk context instead of returning empty context.
-                relevant_docs = relevant_chunks
-
-            print("✍️ 生成专业旅游攻略...")
-
-            # 根据路由类型自动选择回答模式
-            if route_type == "detail":
-                # 详细查询使用分步攻略模式
-                result = self.generation_module.generate_step_by_step(question, relevant_docs)
-            else:
-                # 一般查询使用基础问答模式
-                result = self.generation_module.generate_basic_answer(question, relevant_docs)
+            result = self.generation_module.generate_basic_answer(question, relevant_docs)
 
         if return_sources:
             if isinstance(result, str):

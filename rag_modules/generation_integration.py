@@ -100,12 +100,11 @@ class GenerationIntegrationModule:
     def query_router(self, query: str) -> str:
         """查询路由"""
         prompt = ChatPromptTemplate.from_template("""
-根据用户的旅游问题，将其分类为以下三种类型之一：
-1. 'list' - 获取推荐地点列表（不要求给出理由的）
-2. 'detail' - 具体的路线、攻略
-3. 'general' - 其他一般性问题
+根据用户的旅游问题，将其分类为以下两种类型之一：
+1. 'detail' - 具体的路线、攻略
+2. 'general' - 其他一般性问题
 
-请只返回分类结果：list、detail 或 general
+请只返回分类结果：detail 或 general
 
 用户问题: {query}
 
@@ -126,7 +125,7 @@ class GenerationIntegrationModule:
         # 记录日志
         self._log_llm_interaction("查询路由 (query_router)", full_prompt_text, result)
 
-        if result in ['list', 'detail', 'general']:
+        if result in ['detail', 'general']:
             return result
         else:
             return 'general'
@@ -197,25 +196,6 @@ class GenerationIntegrationModule:
             yield chunk
 
         self._log_llm_interaction("已有知识回答 (generate_general_knowledge_answer)", full_prompt_text, full_response)
-
-    def generate_list_answer(self, query: str, context_docs: List[Document]) -> str:
-        """生成列表式回答 (纯逻辑处理，未调用LLM)"""
-        # ... (此方法未调用 LLM，保持不变)
-        if not context_docs:
-            return "抱歉，指南中暂无相关的推荐信息。"
-
-        items = []
-        for doc in context_docs:
-            item_name = doc.metadata.get('Item_Name') or doc.metadata.get('Sub_Section') or doc.metadata.get('Title', '未知地点')
-            if item_name not in items:
-                items.append(item_name)
-
-        if len(items) == 1:
-            return f"为您推荐：{items[0]}"
-        elif len(items) <= 5:
-            return f"为您精选以下推荐：\n" + "\n".join([f"{i + 1}. {name}" for i, name in enumerate(items)])
-        else:
-            return f"为您精选以下热门推荐：\n" + "\n".join([f"{i + 1}. {name}" for i, name in enumerate(items[:5])]) + f"\n\n此外，还有其他 {len(items) - 5} 个选择可供探索。"
 
     def generate_basic_answer(self, query: str, context_docs: List[Document]):
         """生成基础回答 - 流式输出"""
@@ -332,8 +312,6 @@ class GenerationIntegrationModule:
 
     def _build_style_instruction(self, route_type: str) -> str:
         """Return style guidance based on the routed query type."""
-        if route_type == "list":
-            return "优先给出清晰的推荐列表，每项可附一句简短理由。"
         if route_type == "detail":
             return "请给出结构化、步骤化的旅行建议或行程安排。"
         return "请给出准确、直接、实用的旅行建议。"
